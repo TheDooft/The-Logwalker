@@ -21,9 +21,11 @@ public class LogParser {
 
     public LogParser(String string) throws FileNotFoundException {
 
+        report = new LogReport();
+
         initParsers();
 
-        report = new LogReport();
+
 
         Scanner scanner = new Scanner(new File(string));
 
@@ -50,6 +52,7 @@ public class LogParser {
 
     private void initParsers() {
         eventParsers.add(new UnitDiedEventParser());
+        eventParsers.add(new SpellEventParser(report));
 
     }
 
@@ -72,12 +75,12 @@ public class LogParser {
 
         String key = splitParam[0];
 
-        Unit sourceUnit = report.getUnitManager().parseUnit(parseGuid(splitParam[1]), parseString(splitParam[2]), parseInt(splitParam[3]));
-        Unit targetUnit = report.getUnitManager().parseUnit(parseGuid(splitParam[4]), parseString(splitParam[5]), parseInt(splitParam[6]));
+        Unit sourceUnit = report.getUnitManager().parseUnit(parseGuid(splitParam[1]), parseString(splitParam[2]), parseLong(splitParam[3]));
+        Unit targetUnit = report.getUnitManager().parseUnit(parseGuid(splitParam[4]), parseString(splitParam[5]), parseLong(splitParam[6]));
 
 
         for(EventParser eventParser: eventParsers) {
-            if(key.equals((eventParser.getKey()))) {
+            if(eventParser.match(key)) {
                 return eventParser.parse(date, time, sourceUnit, targetUnit, splitParam);
             }
         }
@@ -88,15 +91,19 @@ public class LogParser {
 
     }
 
-    private long parseInt(String string) {
+    public static long parseLong(String string) {
         return Long.parseLong(string.substring(2), 16);
     }
 
-    private String parseString(String string) {
+    public static int parseInt(String string) {
+        return Integer.parseInt(string.substring(2), 16);
+    }
+
+    public static String parseString(String string) {
         return string.substring(1, string.length()-1);
     }
 
-    private String parseGuid(String string) {
+    public static String parseGuid(String string) {
         return string.substring(2);
     }
 

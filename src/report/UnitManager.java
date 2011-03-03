@@ -9,6 +9,10 @@ public class UnitManager {
 
     Map<String, Unit> unitMap = new HashMap<String, Unit>();
 
+    public UnitManager() {
+        unitMap.put(Unit.nil.getGuid(), Unit.nil);
+    }
+
     public Unit parseUnit(String guid, String name, long flags) {
 
         if(unitMap.containsKey(guid)) {

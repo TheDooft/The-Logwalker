@@ -22,5 +22,8 @@ public class Unit {
     }
 
 
+    public static Unit nil = new Unit("0000000000000000", "nil", 0);
+
+
 
 }
