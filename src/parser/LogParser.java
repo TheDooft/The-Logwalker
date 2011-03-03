@@ -125,20 +125,27 @@ public class LogParser {
         for(Fight fight:allFights) {
             int index = allFights.indexOf(fight);
             List<Unit> mobs = fight.getMobs();
+            List<Unit> characters = fight.getCharacters();
 
             String mobNames = "";
             for(Unit mob:mobs) {
                 mobNames += mob.getName()+", ";
             }
-
             mobNames = mobNames.substring(0, mobNames.length()-2);
+
+            String characterNames = "";
+            for(Unit character:characters) {
+                characterNames += character.getName()+", ";
+            }
+            characterNames = characterNames.substring(0, characterNames.length()-2);
 
 
             System.out.println("Combat "+index);
-            System.out.println("    Mobs  : "+mobNames);
-            System.out.println("    Début : "+fight.getBeginTime().toString());
-            System.out.println("    Fin   : "+fight.getEndTime().toString());
-            System.out.println("    Durée : "+TimeInterval.print(fight.getTimeInterval().getDuration()));
+            System.out.println("    Mobs   : "+mobNames);
+            System.out.println("    Persos : "+characterNames);
+            System.out.println("    Début  : "+fight.getBeginTime().toString());
+            System.out.println("    Fin    : "+fight.getEndTime().toString());
+            System.out.println("    Durée  : "+TimeInterval.print(fight.getTimeInterval().getDuration()));
         }
 
 

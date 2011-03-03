@@ -11,6 +11,7 @@ import event.LogEvent;
 public class Fight implements Comparable<Fight>{
     List<LogEvent> logEventList = new ArrayList<LogEvent>();
     List<UnitActivity> mobActivities = new ArrayList<UnitActivity>();
+    List<UnitActivity> charactersActivities = new ArrayList<UnitActivity>();
 
     public List<LogEvent> getEventList() {
         return logEventList;
@@ -18,6 +19,10 @@ public class Fight implements Comparable<Fight>{
 
     public void addMobActivity(UnitActivity mobActivity) {
         mobActivities.add(mobActivity);
+    }
+
+    public void addCharacterActivity(UnitActivity activity) {
+        charactersActivities.add(activity);
     }
 
     public TimeInterval getTimeInterval() {
@@ -59,7 +64,6 @@ public class Fight implements Comparable<Fight>{
             mobs.add(mobActivity.getUnit());
         }
         return mobs;
-
     }
 
     @Override
@@ -72,5 +76,18 @@ public class Fight implements Comparable<Fight>{
             return -1;
         }
         return 0;
+    }
+
+    public List<UnitActivity> getCharacterActivities() {
+        return charactersActivities;
+    }
+
+    public List<Unit> getCharacters() {
+        List<Unit> characters = new ArrayList<Unit>();
+
+        for(UnitActivity characterActivity : charactersActivities) {
+            characters.add(characterActivity.getUnit());
+        }
+        return characters;
     }
 }
