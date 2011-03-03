@@ -3,22 +3,22 @@ package parser;
 import world.Timestamp;
 import world.Unit;
 import event.LogEvent;
-import event.UnitDiedEvent;
+import event.RangeEvent;
 
-public class UnitDiedEventParser extends EventParser{
+public class RangeEventParser extends EventParser{
 
-    public UnitDiedEventParser() {
+    public RangeEventParser() {
     }
 
     @Override
     public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) {
 
-        return new UnitDiedEvent( time, target);
+        return new RangeEvent(time, source, target);
     }
 
     @Override
     public boolean match(String key) {
-        return key.equals("UNIT_DIED");
+        return key.startsWith("RANGE");
     }
 
 }

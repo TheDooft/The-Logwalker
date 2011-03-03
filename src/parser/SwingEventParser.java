@@ -3,22 +3,22 @@ package parser;
 import world.Timestamp;
 import world.Unit;
 import event.LogEvent;
-import event.UnitDiedEvent;
+import event.SwingEvent;
 
-public class UnitDiedEventParser extends EventParser{
+public class SwingEventParser extends EventParser{
 
-    public UnitDiedEventParser() {
+    public SwingEventParser() {
     }
 
     @Override
     public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) {
 
-        return new UnitDiedEvent( time, target);
+        return new SwingEvent(time, source, target);
     }
 
     @Override
     public boolean match(String key) {
-        return key.equals("UNIT_DIED");
+        return key.startsWith("SWING");
     }
 
 }

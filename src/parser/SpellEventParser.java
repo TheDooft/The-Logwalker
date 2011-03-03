@@ -1,6 +1,7 @@
 package parser;
 
 import report.LogReport;
+import world.Timestamp;
 import world.Unit;
 import event.LogEvent;
 import event.SpellEvent;
@@ -14,9 +15,9 @@ public class SpellEventParser extends EventParser{
     }
 
     @Override
-    public LogEvent parse(String date, String time, Unit source, Unit target, String[] params) {
+    public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) {
 
-        return new SpellEvent(date, time, source, target, report.getSpellManager().parseSpell(params[7], LogParser.parseString(params[8]), LogParser.parseInt(params[9])));
+        return new SpellEvent(time, source, target, report.getSpellManager().parseSpell(params[7], LogParser.parseString(params[8]), LogParser.parseInt(params[9])));
     }
 
     @Override
