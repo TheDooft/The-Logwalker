@@ -53,6 +53,14 @@ public class Timestamp {
         return outputDateFormat.format(new Date(time));
     }
 
+    public Timestamp plus(long i) {
+        return new Timestamp(time + i);
+    }
+
+    public Timestamp minus(long i) {
+        return new Timestamp(time - i);
+    }
+
 
 
 }

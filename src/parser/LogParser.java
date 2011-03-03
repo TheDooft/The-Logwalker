@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import report.Fight;
 import report.LogReport;
+import report.UnitActivity;
 import world.TimeInterval;
 import world.Timestamp;
 import world.Unit;
@@ -124,23 +125,23 @@ public class LogParser {
 
         for(Fight fight:allFights) {
             int index = allFights.indexOf(fight);
-            List<Unit> mobs = fight.getMobs();
-            List<Unit> characters = fight.getCharacters();
+            List<UnitActivity> mobs = fight.getMobActivities();
+            List<UnitActivity> characters = fight.getCharacterActivities();
 
             String mobNames = "";
-            for(Unit mob:mobs) {
-                mobNames += mob.getName()+", ";
+            for(UnitActivity mob:mobs) {
+                mobNames += mob.getUnit().getName()+(mob.isDying()? " †" : "" )+", ";
             }
             mobNames = mobNames.substring(0, mobNames.length()-2);
 
             String characterNames = "";
-            for(Unit character:characters) {
-                characterNames += character.getName()+", ";
+            for(UnitActivity character:characters) {
+                characterNames += character.getUnit().getName()+(character.isDying()? " †" : "" )+", ";
             }
             characterNames = characterNames.substring(0, characterNames.length()-2);
 
 
-            System.out.println("Combat "+index);
+            System.out.println("Combat "+index+ " - "+(fight.isWipe() ? "wipe": "success"));
             System.out.println("    Mobs   : "+mobNames);
             System.out.println("    Persos : "+characterNames);
             System.out.println("    Début  : "+fight.getBeginTime().toString());

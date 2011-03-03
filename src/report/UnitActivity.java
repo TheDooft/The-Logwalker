@@ -6,6 +6,7 @@ import java.util.List;
 import world.Timestamp;
 import world.Unit;
 import event.LogEvent;
+import event.UnitDiedEvent;
 
 public class UnitActivity {
 
@@ -14,6 +15,7 @@ public class UnitActivity {
     Timestamp beginTime = null;
     Timestamp endTime = null;
     private LogEvent lastEvent;
+    private boolean dying = false;
 
     public UnitActivity(Unit mob) {
         this.unit = mob;
@@ -22,6 +24,10 @@ public class UnitActivity {
     public void addEvent(LogEvent event) {
         logEventList.add(event);
         lastEvent = event;
+
+        if(event.getClass() == UnitDiedEvent.class) {
+            dying = true;
+        }
     }
 
     public Timestamp getBeginTime() {
@@ -69,6 +75,9 @@ public class UnitActivity {
         return lastEvent.getTime();
     }
 
+    public boolean isDying() {
+        return dying ;
+    }
 
 
 }

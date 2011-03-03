@@ -123,7 +123,7 @@ public class LogReport {
         Map<Unit, UnitActivity> characterCurrentActivity = new HashMap<Unit, UnitActivity>();
 
         for (LogEvent event : logEventList) {
-            while (event.getTime().after(activeCombat.getEndTime())) {
+            while (event.getTime().after(activeCombat.getEndTime().plus(5000))) {
 
                 for (UnitActivity activity : characterCurrentActivity.values()) {
                     activeCombat.addCharacterActivity(activity);
@@ -136,7 +136,7 @@ public class LogReport {
                 activeCombat = iterator.next();
             }
 
-            if (event.getTime().afterOrEqual(activeCombat.getBeginTime())) {
+            if (event.getTime().afterOrEqual(activeCombat.getBeginTime().minus(5000))) {
 
                 Unit source = event.getSource();
                 if (source.isPlayer()) {
@@ -147,7 +147,7 @@ public class LogReport {
                     activity.addEvent(event);
                 }
 
-                Unit target = event.getSource();
+                Unit target = event.getTarget();
                 if (target.isPlayer() && !target.equals(source)) {
                     if (!characterCurrentActivity.containsKey(target)) {
                         characterCurrentActivity.put(target, new UnitActivity(target));

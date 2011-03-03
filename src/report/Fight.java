@@ -90,4 +90,14 @@ public class Fight implements Comparable<Fight>{
         }
         return characters;
     }
+
+    public boolean isWipe() {
+
+        for(UnitActivity mobActivity : mobActivities) {
+            if(!mobActivity.isDying()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
