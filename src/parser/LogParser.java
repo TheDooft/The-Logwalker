@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import report.LogReport;
+import world.Unit;
+
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
 
 import event.LogEvent;
@@ -36,7 +39,7 @@ public class LogParser {
                 }
 
             } catch (ParseException e) {
-                //System.err.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
 
 
@@ -63,15 +66,19 @@ public class LogParser {
 
         String[] splitParam = params.split(",");
 
-        if(splitParam.length < 1) {
-            throw new ParseException("Bad formated line. Excepted at least 1. Found: "+params);
+        if(splitParam.length < 7) {
+            throw new ParseException("Bad formated line. Excepted at least 7. Found: "+params);
         }
 
         String key = splitParam[0];
 
+        Unit sourceUnit = report.getUnitManager().parseUnit(parseGuid(splitParam[1]), parseString(splitParam[2]), parseInt(splitParam[3]));
+        Unit targetUnit = report.getUnitManager().parseUnit(parseGuid(splitParam[4]), parseString(splitParam[5]), parseInt(splitParam[6]));
+
+
         for(EventParser eventParser: eventParsers) {
             if(key.equals((eventParser.getKey()))) {
-                return eventParser.parse(date, time, splitParam);
+                return eventParser.parse(date, time, sourceUnit, targetUnit, splitParam);
             }
         }
 
@@ -79,6 +86,18 @@ public class LogParser {
 
         throw new ParseException("Unknow event "+key+" in "+ params);
 
+    }
+
+    private long parseInt(String string) {
+        return Long.parseLong(string.substring(2), 16);
+    }
+
+    private String parseString(String string) {
+        return string.substring(1, string.length()-1);
+    }
+
+    private String parseGuid(String string) {
+        return string.substring(2);
     }
 
     public static void main(String[] args) throws FileNotFoundException {

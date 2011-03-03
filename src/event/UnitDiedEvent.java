@@ -1,18 +1,20 @@
 package event;
 
+import world.Unit;
+
 public class UnitDiedEvent extends LogEvent {
 
-    private final String unitName;
+    private final Unit unit;
 
-    public UnitDiedEvent(String date, String time, String unitName) {
+    public UnitDiedEvent(String date, String time, Unit unit) {
         super(date, time);
-        this.unitName = unitName;
+        this.unit = unit;
 
     }
 
     @Override
     protected String getText() {
-        return unitName + " meurt";
+        return unit.getName() + " meurt";
     }
 
 

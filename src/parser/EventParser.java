@@ -1,5 +1,6 @@
 package parser;
 
+import world.Unit;
 import event.LogEvent;
 
 public abstract class EventParser {
@@ -14,6 +15,6 @@ public abstract class EventParser {
         return key;
     }
 
-     public abstract LogEvent parse(String date, String time, String[] params);
+     public abstract LogEvent parse(String date, String time, Unit source, Unit target, String[] params);
 
 }

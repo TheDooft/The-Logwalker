@@ -1,5 +1,6 @@
 package parser;
 
+import world.Unit;
 import event.LogEvent;
 import event.UnitDiedEvent;
 
@@ -10,11 +11,9 @@ public class UnitDiedEventParser extends EventParser{
     }
 
     @Override
-    public LogEvent parse(String date, String time, String[] params) {
+    public LogEvent parse(String date, String time, Unit source, Unit target, String[] params) {
 
-        String unitName = params[5];
-
-        return new UnitDiedEvent(date, time, unitName);
+        return new UnitDiedEvent(date, time, target);
     }
 
 }
