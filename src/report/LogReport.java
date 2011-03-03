@@ -15,6 +15,7 @@ import event.LogEvent;
 public class LogReport {
 
     private static final long MOB_IDLE_TIME = 20000; // 20s
+    private static final long MIN_FIGHT_DURATION = 1000; // 1s
     List<LogEvent> logEventList = new ArrayList<LogEvent>();
     private final UnitManager unitManager = new UnitManager();
     private final SpellManager spellManager = new SpellManager();
@@ -92,9 +93,23 @@ public class LogReport {
             ;
 
         fights.addAll(tempFightList);
+
+
+        //Clear very small combats
+        Iterator<Fight> iterator = fights.iterator();
+        while(iterator.hasNext()) {
+            Fight next = iterator.next();
+            if(next.getTimeInterval().getDuration() < MIN_FIGHT_DURATION) {
+                iterator.remove();
+            }
+        }
+
         Collections.sort(fights);
 
         fillCharactersActivities();
+
+
+
 
     }
 
