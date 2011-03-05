@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import report.Damage;
+import report.Energize;
 import report.Fight;
+import report.Heal;
 import report.LogReport;
 import report.Miss;
 import report.Miss.Type;
@@ -128,6 +130,17 @@ public class LogParser {
 
     }
 
+    public static Heal parseHeal(String[] params, int index) {
+
+        int amount = Integer.valueOf(params[index + 0]);
+        int overhealing = Integer.valueOf(params[index + 1]);
+        int absorbed = Integer.valueOf(params[index + 2]);
+        boolean critical = (params[index + 2].equals("nil") ? false : true);
+
+        return new Heal(amount, overhealing, absorbed, critical);
+
+    }
+
     public static Miss parseMiss(String[] params, int index) {
 
         String reason = params[index + 0];
@@ -165,6 +178,44 @@ public class LogParser {
         return new Miss(amount, type);
 
     }
+
+    public static Energize parseEnergize(String[] params, int index) {
+
+        int amount = Integer.valueOf(params[index + 0]);
+        String reason = params[index + 1];
+
+        Energize.Type type = null;
+
+        if (reason.equals("-2")) {
+            type = Energize.Type.HEALTH;
+        } else if (reason.equals("0")) {
+            type = Energize.Type.MANA;
+        } else if (reason.equals("1")) {
+            type = Energize.Type.RAGE;
+        } else if (reason.equals("2")) {
+            type = Energize.Type.FOCUS;
+        } else if (reason.equals("3")) {
+            type = Energize.Type.ENERGY;
+        } else if (reason.equals("4")) {
+            type = Energize.Type.PET_HAPPINESS;
+        } else if (reason.equals("5")) {
+            type = Energize.Type.RUNES;
+        } else if (reason.equals("6")) {
+            type = Energize.Type.RUNIC_POWER;
+        } else if (reason.equals("7")) {
+            type = Energize.Type.SOUL_SHARD;
+        } else if (reason.equals("8")) {
+            type = Energize.Type.ECLIPSE;
+        } else if (reason.equals("9")) {
+            type = Energize.Type.HOLY_POWER;
+        } else if (reason.equals("10")) {
+            type = Energize.Type.ATRAMEDES_SOUND;
+        }
+
+        return new Energize(amount, type);
+
+    }
+
 
     public static void main(String[] args) throws FileNotFoundException, java.text.ParseException {
         LogParser parser = new LogParser("/home/fred/.wine/drive_c/Program Files/World of Warcraft/Logs/WoWCombatLog.txt");
