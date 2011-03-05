@@ -2,8 +2,12 @@ package parser;
 
 import world.Timestamp;
 import world.Unit;
+
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
+
 import event.LogEvent;
-import event.SwingEvent;
+import event.SwingDamageEvent;
+import event.SwingMissed;
 
 public class SwingEventParser extends EventParser{
 
@@ -11,9 +15,20 @@ public class SwingEventParser extends EventParser{
     }
 
     @Override
-    public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) {
+    public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) throws ParseException {
 
-        return new SwingEvent(time, source, target);
+        //return new SwingEvent(time, source, target);
+
+        String key = params[0];
+
+        if(key.equals("SWING_DAMAGE")) {
+            return new SwingDamageEvent(time, source, target, LogParser.parseDamage(params, 7));
+        }else if(key.equals("SWING_MISSED")) {
+            return new SwingMissed(time, source, target, LogParser.parseMiss(params, 7));
+        }
+
+        throw new ParseException("Unknowb event type "+key);
+
     }
 
     @Override
