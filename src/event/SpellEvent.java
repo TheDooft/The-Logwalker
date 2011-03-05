@@ -6,7 +6,7 @@ import world.Unit;
 
 public class SpellEvent extends LogEvent {
 
-    private final Spell spell;
+    protected final Spell spell;
 
     public SpellEvent(Timestamp time, Unit caster, Unit target, Spell spell) {
         super(time, caster, target);
@@ -15,15 +15,11 @@ public class SpellEvent extends LogEvent {
 
     @Override
     protected String getText() {
-        if(target == Unit.nil) {
-            //Aucune cible
-            return source.getName() + " lance "+ spell.getName();
+        if (target == Unit.nil) {
+            // Aucune cible
+            return source.getName() + " lance " + spell.getName();
         }
-        return source.getName() + " lance "+ spell.getName() + " sur "+ target.getName();
+        return source.getName() + " lance " + spell.getName() + " sur " + target.getName();
     }
-
-
-
-
 
 }

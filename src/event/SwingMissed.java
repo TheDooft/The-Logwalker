@@ -4,7 +4,7 @@ import report.Miss;
 import world.Timestamp;
 import world.Unit;
 
-public class SwingMissed extends LogEvent {
+public class SwingMissed extends SwingEvent {
 
     private final Miss miss;
 
