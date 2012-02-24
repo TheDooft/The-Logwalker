@@ -78,6 +78,23 @@ public class LogParser {
 
         String[] splitParam = params.split(",");
 
+        for(int i = 0; i < splitParam.length ; i++) {
+        	if(splitParam[i].startsWith("\"") && !splitParam[i].endsWith("\"")) {
+        		String[] newSplitParam = new String[splitParam.length -1];
+        		for(int j = 0; j < i ; j++) {
+        			newSplitParam[j] = splitParam[j];
+        		}
+        		newSplitParam[i] = splitParam[i]+ "," + splitParam[i+1];
+        		
+        		for(int j = i+2; j < splitParam.length ; j++) {
+        			newSplitParam[j-1] = splitParam[j];
+        		}
+        		splitParam = newSplitParam;
+        		i--;
+        	}
+        }
+        
+        
         if (splitParam.length < 7) {
             throw new ParseException("Bad formated line. Excepted at least 7. Found: " + params);
         }
@@ -218,7 +235,7 @@ public class LogParser {
 
 
     public static void main(String[] args) throws FileNotFoundException, java.text.ParseException {
-        LogParser parser = new LogParser("/home/fred/.wine/drive_c/Program Files/World of Warcraft/Logs/WoWCombatLog.txt");
+        LogParser parser = new LogParser("/home/fred/tmp/WoWCombatLog.txt");
 
         LogReport report = parser.getReport();
 
