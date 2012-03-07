@@ -127,10 +127,7 @@ public class SpellEventParser extends EventParser {
 		} else if (key.equals("SPELL_INSTAKILL")) {
 			return new SpellInstakillEvent(time, source, target,
 					getSpell(params));
-		} else if (key.equals("DAMAGE_SPLIT")) {
-			return new DamageSplitEvent(time, source, target, getSpell(params),
-					LogParser.parseDamage(params, 10));
-		}
+		} 
 
 		throw new ParseException("Unknown event type " + key);
 
@@ -139,7 +136,7 @@ public class SpellEventParser extends EventParser {
 		// LogParser.parseString(params[8]), LogParser.parseInt(params[9])));
 	}
 
-	private Spell getExtraSpell(String[] params) {
+	public Spell getExtraSpell(String[] params) {
 		return report.getSpellManager()
 				.parseSpell(params[10], LogParser.parseString(params[11]),
 						Integer.parseInt(params[12]));
