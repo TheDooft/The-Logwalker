@@ -16,7 +16,7 @@ public class SpellAuraAppliedEvent extends SpellEvent {
     @Override
     protected String getText() {
         if(target == Unit.nil) {
-            //Aucune cible
+            //No Target
             return source.getName() + " lance "+ spell.getName();
         }
         return source.getName() + " applique le "+(type.equals("BUFF") ? "buff" : "debuff")+" "+ spell.getName() + " sur "+ target.getName();

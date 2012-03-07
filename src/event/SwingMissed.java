@@ -13,6 +13,10 @@ public class SwingMissed extends SwingEvent {
         this.miss = miss;
     }
 
+    public Miss getMiss() {
+		return miss;
+	}
+    
     @Override
     protected String getText() {
         // TODO Auto-generated method stub
