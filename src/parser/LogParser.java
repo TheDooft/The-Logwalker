@@ -28,10 +28,13 @@ public class LogParser {
 	public LogParser(String string) throws FileNotFoundException,
 			java.text.ParseException {
 
+		long start = System.nanoTime();
+
 		report = new LogReport();
 
 		initParsers();
-
+		System.err.println("Parser inited  - t" + (System.nanoTime() - start)
+				/ 1000000000.0);
 		Scanner scanner = new Scanner(new File(string), "UTF-8");
 
 		while (scanner.hasNextLine()) {
@@ -238,5 +241,4 @@ public class LogParser {
 	public LogReport getReport() {
 		return report;
 	}
-
 }
