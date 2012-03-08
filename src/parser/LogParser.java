@@ -8,13 +8,10 @@ import java.util.Scanner;
 
 import report.Damage;
 import report.Energize;
-import report.Fight;
 import report.Heal;
 import report.LogReport;
 import report.Miss;
 import report.Miss.Type;
-import report.UnitActivity;
-import world.TimeInterval;
 import world.Timestamp;
 import world.Unit;
 
@@ -52,9 +49,6 @@ public class LogParser {
 			}
 
 		}
-
-		report.compute();
-
 	}
 
 	private void initParsers() {
@@ -147,7 +141,6 @@ public class LogParser {
 		int blocked = Integer.valueOf(params[index + 2]);
 		int absorbed = Integer.valueOf(params[index + 2]);
 		boolean critical = (params[index + 2].equals("nil") ? false : true);
-		// RicochÃ©
 		boolean glancing = (params[index + 2].equals("nil") ? false : true);
 		boolean crushing = (params[index + 2].equals("nil") ? false : true);
 
@@ -239,72 +232,6 @@ public class LogParser {
 		}
 
 		return new Energize(amount, type);
-
-	}
-
-	public static void main(String[] args) throws FileNotFoundException,
-			java.text.ParseException {
-		LogParser parser = new LogParser(".\\sample\\WoWCombatLog.txt");
-
-		LogReport report = parser.getReport();
-
-		System.out.println("Nombre d'evenements: " + report.getEventCount());
-
-		List<Fight> allFights = report.getAllFigths();
-
-		for (Fight fight : allFights) {
-			int index = allFights.indexOf(fight);
-			List<UnitActivity> mobs = fight.getMobActivities();
-			List<UnitActivity> characters = fight.getCharacterActivities();
-
-			String mobNames = "";
-			for (UnitActivity mob : mobs) {
-				mobNames += mob.getUnit().getName()
-						+ (mob.isDying() ? " † " : "") + ", ";
-			}
-			mobNames = mobNames.substring(0, mobNames.length() - 2);
-
-			String characterNames = "";
-			for (UnitActivity character : characters) {
-				characterNames += character.getUnit().getName()
-						+ (character.isDying() ? " † " : "") + ", ";
-			}
-			characterNames = characterNames.substring(0,
-					characterNames.length() - 2);
-
-			System.out.println("Combat " + index + " - "
-					+ (fight.isWipe() ? "wipe" : "success"));
-			System.out.println("    Mobs   : " + mobNames);
-			System.out.println("    Persos : " + characterNames);
-			System.out.println("    Début  : "
-					+ fight.getBeginTime().toString());
-			System.out.println("    Fin    : " + fight.getEndTime().toString());
-			System.out
-					.println("    Durée  : "
-							+ TimeInterval.print(fight.getTimeInterval()
-									.getDuration()));
-		}
-
-		Unit homeostasie = report.getUnitManager().getUniqueByName(
-				"Homéostasie");
-		List<Fight> fights = report.getFigthsWith("Chimaeron");
-
-		// for(Fight fight:fights) {
-		//
-		// System.out.println("");
-		// System.out.println("");
-		// System.out.println("============");
-		// System.out.println("= Chimaron =");
-		// System.out.println("============");
-		// System.out.println("");
-		//
-		// List<LogEvent> eventList = fight.getEventList();
-		// for(LogEvent event: eventList) {
-		// if(event.involve(homeostasie)) {
-		// System.out.println(event.toString());
-		// }
-		// }
-		// }
 
 	}
 

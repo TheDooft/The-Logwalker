@@ -11,6 +11,14 @@ public class Miss {
         this.type = type;
     }
 
+    public int getAmount() {
+		return amount;
+	}
+    
+    public Type getType() {
+		return type;
+	}
+    
     public enum Type {
         ABSORB,
         BLOCK,

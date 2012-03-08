@@ -7,7 +7,6 @@ import world.Unit;
 
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
 
-import event.DamageSplitEvent;
 import event.LogEvent;
 import event.SpellAuraAppliedDoseEvent;
 import event.SpellAuraAppliedEvent;
@@ -126,13 +125,9 @@ public class SpellEventParser extends EventParser {
 		} else if (key.equals("SPELL_INSTAKILL")) {
 			return new SpellInstakillEvent(time, source, target,
 					getSpell(params));
-		} 
+		}
 
 		throw new ParseException("Unknown event type " + key);
-
-		// return new SpellEvent(time, source, target,
-		// report.getSpellManager().parseSpell(params[7],
-		// LogParser.parseString(params[8]), LogParser.parseInt(params[9])));
 	}
 
 	public Spell getExtraSpell(String[] params) {
