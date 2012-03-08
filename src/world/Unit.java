@@ -1,5 +1,10 @@
 package world;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import report.UnitActivity;
+
 
 public class Unit {
 
@@ -29,11 +34,14 @@ public class Unit {
     private final String guid;
     private final String name;
     private final long flags;
+	private List<UnitActivity> activities;
 
     public Unit(String guid, String name, long flags) {
         this.guid = guid;
         this.name = name;
         this.flags = flags;
+        this.activities = new ArrayList<UnitActivity>();
+        this.activities.add(new UnitActivity(this));
 
     }
 
@@ -82,6 +90,20 @@ public class Unit {
     public boolean isMob() {
         return ((flags & REACTION_MASK) == REACTION_HOSTILE) && ((flags & TYPE_MASK) == TYPE_NPC);
     }
+
+	public UnitActivity getLastActivity() {
+		return activities.get(activities.size() -1);
+	}
+
+	public UnitActivity newActivity() {
+		UnitActivity activity = new UnitActivity(this);
+		this.activities.add(activity);
+		return activity;
+	}
+
+	public List<UnitActivity> getActivities() {
+		return activities;
+	}
 
 
 

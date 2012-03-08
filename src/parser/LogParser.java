@@ -32,10 +32,12 @@ public class LogParser {
 	public LogParser(String string) throws FileNotFoundException,
 			java.text.ParseException {
 
+		long start = System.nanoTime(); 
+		
 		report = new LogReport();
 
 		initParsers();
-
+		System.err.println("Parser inited  - t"+ (System.nanoTime() - start)/1000000000.0);
 		Scanner scanner = new Scanner(new File(string), "UTF-8");
 
 		while (scanner.hasNextLine()) {
@@ -54,7 +56,10 @@ public class LogParser {
 
 		}
 
+		
+		System.err.println("Parsed, compute - t"+ (System.nanoTime() - start)/1000000000.0);
 		report.compute();
+		System.err.println("Compute end - t"+ (System.nanoTime() - start)/1000000000.0);
 
 	}
 
@@ -245,7 +250,7 @@ public class LogParser {
 
 	public static void main(String[] args) throws FileNotFoundException,
 			java.text.ParseException {
-		LogParser parser = new LogParser(".\\sample\\WoWCombatLog.txt");
+		LogParser parser = new LogParser("./sample/WoWCombatLog.txt");
 
 		LogReport report = parser.getReport();
 
