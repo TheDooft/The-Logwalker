@@ -1,9 +1,6 @@
-import java.io.FileNotFoundException;
-import java.sql.Time;
-import java.util.Date;
-
 import gui.Gui;
-import parser.LogParser;
+
+import java.io.FileNotFoundException;
 
 
 public class TheLogwalker {
