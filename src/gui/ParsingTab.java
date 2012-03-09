@@ -24,6 +24,7 @@ public class ParsingTab extends JPanel implements ActionListener {
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		/* Source File Choosing */
 		JTextField textFieldFileName = new JTextField("./sample/WoWCombatLog.txt",30);
+		textFieldFileName.setMaximumSize( textFieldFileName.getPreferredSize() );
 		JButton buttonBrowse = new JButton("Browse...");
 		JPanel sourcePanel = new JPanel();
 		
@@ -36,7 +37,6 @@ public class ParsingTab extends JPanel implements ActionListener {
 		sourcePanel.add(buttonBrowse);
 		this.add(sourcePanel,BorderLayout.PAGE_START);
 		this.add(buttonParse);
-		this.add(Box.createVerticalGlue());
 	}
 
 	@Override
