@@ -1,21 +1,17 @@
 package gui;
 
-import java.awt.FontMetrics;
-import java.awt.Rectangle;
+import java.awt.ComponentOrientation;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
-import javax.swing.plaf.metal.MetalTabbedPaneUI;
-import javax.swing.text.View;
 
 public class MainWindow extends JFrame {
 	/**
 	 * 
 	 */
+	private JTabbedPane tabs;
+	
 	private static final long serialVersionUID = 2740437090361841747L;
 
 	public MainWindow() {
@@ -23,7 +19,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private void init() {
-		JTabbedPane tabs = new JTabbedPane(JTabbedPane.LEFT);
+		/*JTabbedPane*/ tabs = new JTabbedPane(JTabbedPane.LEFT);
 
 		setSize(1024, 768);
 		setTitle("The LogWalker");
@@ -32,68 +28,14 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		/* Creating defaults tabs */
-		tabs.setUI(new LeftTabbedPaneUI());
-		tabs.addTab("Parsing", new ImageIcon("./img/small/inv_scroll_01.jpg"),
+
+		//JLabel tabTitle = new JLabel("Parsing", new ImageIcon("./img/small/inv_scroll_01.jpg"), JLabel.LEFT);
+		
+		tabs.addTab("Parsing",new ImageIcon("./img/small/inv_scroll_01.jpg"),
 				new ParsingTab(), "Parse the log file");
-		tabs.addTab("All", new ImageIcon("./img/small/inv_scroll_01.jpg"),
+		tabs.addTab("All", new ImageIcon("./img/small/inv_scroll_02.jpg"),
 				new ParsingTab(), "All fights");
+		tabs.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		add(tabs);
-	}
-
-	// private JPanel createTab(String name,String iconName){
-	// JLabel lbl = new JLabel(name,new ImageIcon(iconName),JLabel.LEFT);
-	// JPanel panel = new JPanel (new GridBagLayout());
-	// GridBagConstraints gridBagConstraints = new GridBagConstraints();
-	//
-	// lbl.setIconTextGap(5);
-	// lbl.setOpaque(false);
-	//
-	// gridBagConstraints.gridx = 0;
-	// gridBagConstraints.gridy = 0;
-	// gridBagConstraints.weightx = 1;
-	// gridBagConstraints.anchor = GridBagConstraints.WEST;
-	// gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-	//
-	// panel.add(lbl,gridBagConstraints);
-	//
-	// gridBagConstraints.gridx = 0;
-	// gridBagConstraints.gridy = 1;
-	//
-	// panel.add(Box.createHorizontalStrut(0),gridBagConstraints);
-	// panel.setOpaque(false);
-	// return panel;
-	// }
-	// class logTabbedPaneUI extends Basic
-
-	class test extends MetalTabbedPaneUI {
-
-	}
-
-	class LeftTabbedPaneUI extends BasicTabbedPaneUI {
-		@Override
-		protected void layoutLabel(int tabPlacement, FontMetrics metrics,
-				int tabIndex, String title, Icon icon, Rectangle tabRect,
-				Rectangle iconRect, Rectangle textRect, boolean isSelected) {
-			textRect.x = textRect.y = iconRect.x = iconRect.y = 0;
-
-			View v = getTextViewForTab(tabIndex);
-			if (v != null) {
-				tabPane.putClientProperty("html", v);
-			}
-
-			SwingUtilities.layoutCompoundLabel(tabPane, metrics, title, icon,
-					SwingUtilities.CENTER, SwingUtilities.LEFT,
-					SwingUtilities.CENTER, SwingUtilities.TRAILING, tabRect,
-					iconRect, textRect, textIconGap);
-
-			tabPane.putClientProperty("html", null);
-
-			int xNudge = getTabLabelShiftX(tabPlacement, tabIndex, isSelected);
-			int yNudge = getTabLabelShiftY(tabPlacement, tabIndex, isSelected);
-			iconRect.x += xNudge;
-			iconRect.y += yNudge;
-			textRect.x += xNudge;
-			textRect.y += yNudge;
-		}
 	}
 }
