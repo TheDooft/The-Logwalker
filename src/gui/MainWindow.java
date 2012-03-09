@@ -1,5 +1,9 @@
 package gui;
 
+import gui.synth.NimbusLookAndFeel;
+import gui.synth.SynthLookAndFeel;
+import gui.synth.SynthTabbedPaneUI;
+
 import java.awt.FontMetrics;
 import java.awt.Rectangle;
 
@@ -7,8 +11,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.plaf.metal.MetalTabbedPaneUI;
 import javax.swing.text.View;
 
@@ -16,6 +18,8 @@ public class MainWindow extends JFrame {
 	/**
 	 * 
 	 */
+	
+	
 	private static final long serialVersionUID = 2740437090361841747L;
 
 	public MainWindow() {
@@ -32,7 +36,8 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		/* Creating defaults tabs */
-		tabs.setUI(new LeftTabbedPaneUI());
+		tabs.setUI(new SynthTabbedPaneUI());
+		System.err.println(tabs.getUI());
 		tabs.addTab("Parsing", new ImageIcon("./img/small/inv_scroll_01.jpg"),
 				new ParsingTab(), "Parse the log file");
 		tabs.addTab("All", new ImageIcon("./img/small/inv_scroll_01.jpg"),
@@ -69,31 +74,5 @@ public class MainWindow extends JFrame {
 
 	}
 
-	class LeftTabbedPaneUI extends BasicTabbedPaneUI {
-		@Override
-		protected void layoutLabel(int tabPlacement, FontMetrics metrics,
-				int tabIndex, String title, Icon icon, Rectangle tabRect,
-				Rectangle iconRect, Rectangle textRect, boolean isSelected) {
-			textRect.x = textRect.y = iconRect.x = iconRect.y = 0;
-
-			View v = getTextViewForTab(tabIndex);
-			if (v != null) {
-				tabPane.putClientProperty("html", v);
-			}
-
-			SwingUtilities.layoutCompoundLabel(tabPane, metrics, title, icon,
-					SwingUtilities.CENTER, SwingUtilities.LEFT,
-					SwingUtilities.CENTER, SwingUtilities.TRAILING, tabRect,
-					iconRect, textRect, textIconGap);
-
-			tabPane.putClientProperty("html", null);
-
-			int xNudge = getTabLabelShiftX(tabPlacement, tabIndex, isSelected);
-			int yNudge = getTabLabelShiftY(tabPlacement, tabIndex, isSelected);
-			iconRect.x += xNudge;
-			iconRect.y += yNudge;
-			textRect.x += xNudge;
-			textRect.y += yNudge;
-		}
-	}
+	
 }
