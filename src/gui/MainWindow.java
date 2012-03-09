@@ -1,17 +1,17 @@
 package gui;
 
-import java.awt.ComponentOrientation;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+
+
 
 public class MainWindow extends JFrame {
 	/**
 	 * 
 	 */
-	private JTabbedPane tabs;
-	
+
 	private static final long serialVersionUID = 2740437090361841747L;
 
 	public MainWindow() {
@@ -19,7 +19,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private void init() {
-		/*JTabbedPane*/ tabs = new JTabbedPane(JTabbedPane.LEFT);
+		JTabbedPane tabs = new JTabbedPane(JTabbedPane.LEFT);
 
 		setSize(1024, 768);
 		setTitle("The LogWalker");
@@ -29,13 +29,20 @@ public class MainWindow extends JFrame {
 
 		/* Creating defaults tabs */
 
-		//JLabel tabTitle = new JLabel("Parsing", new ImageIcon("./img/small/inv_scroll_01.jpg"), JLabel.LEFT);
+		tabs.addTab("Parsing", new ParsingTab());
+		tabs.addTab("All", new ParsingTab());
 		
-		tabs.addTab("Parsing",new ImageIcon("./img/small/inv_scroll_01.jpg"),
-				new ParsingTab(), "Parse the log file");
-		tabs.addTab("All", new ImageIcon("./img/small/inv_scroll_02.jpg"),
-				new ParsingTab(), "All fights");
-		tabs.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		tabs.setTabComponentAt(0,createTab("Parsing","./img/small/inv_scroll_01.jpg"));
+		tabs.setTabComponentAt(1,createTab("All","./img/small/inv_scroll_02.jpg"));
+		
 		add(tabs);
+	}
+
+
+	private JLabel createTab(String name,String iconName){
+		JLabel jLabel = new JLabel(name,new ImageIcon(iconName),JLabel.LEFT);
+		jLabel.setIconTextGap(5);
+		
+		return jLabel;
 	}
 }

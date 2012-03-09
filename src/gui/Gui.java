@@ -10,7 +10,7 @@ public class Gui {
 
 	public Gui() {
 		setLookAndFeel();
-		//JFrame.setDefaultLookAndFeelDecorated(false);
+		// JFrame.setDefaultLookAndFeelDecorated(false);
 		ToolTipManager.sharedInstance().setInitialDelay(0);
 		mainWindow = new MainWindow();
 	}
@@ -28,6 +28,7 @@ public class Gui {
 					break;
 				}
 			}
+			/* UIManager.setLookAndFeel(new NimbusLookAndFeel()); */
 		} catch (UnsupportedLookAndFeelException e) {
 			// handle exception
 		} catch (ClassNotFoundException e) {
