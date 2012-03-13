@@ -89,6 +89,7 @@ public class ParsingTab extends JPanel implements ActionListener{
 			progressBar.setMinimum(0);
 			progressBar.setMaximum(10000);
 			progressBar.setValue(0);
+			progressBar.setString("0,00 %");
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			progressBar.setVisible(true);
 			buttonCancel.setVisible(true);
