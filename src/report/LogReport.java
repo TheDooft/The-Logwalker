@@ -16,11 +16,22 @@ public class LogReport {
 
 	private static final long MOB_IDLE_TIME = 20000; // 20s
 	private static final long MIN_FIGHT_DURATION = 1000; // 1s
-	List<LogEvent> logEventList = new ArrayList<LogEvent>();
+	private List<LogEvent> logEventList = new ArrayList<LogEvent>();
 	private final UnitManager unitManager = new UnitManager();
 	private final SpellManager spellManager = new SpellManager();
 	private final List<Fight> fights = new ArrayList<Fight>();
-
+	private static LogReport instance;
+	
+	public static LogReport getInstance(){
+		if (instance == null)
+			return new LogReport();
+		return instance;
+	}
+	
+	public void reset(){
+		logEventList.clear();
+	}
+	
 	public void addEvent(LogEvent logEvent) {
 		logEventList.add(logEvent);
 	}
@@ -55,8 +66,6 @@ public class LogReport {
 
 		// Map<Unit, UnitActivity> mobsActivity = new HashMap<Unit,
 		// UnitActivity>();
-
-		
 
 		List<Fight> tempFightList = new ArrayList<Fight>();
 

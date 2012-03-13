@@ -1,10 +1,15 @@
 package parser;
 
+import event.LogEvent;
+import gui.ParsingTab;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.SwingWorker;
 
 import report.Damage;
 import report.Energize;
@@ -17,29 +22,40 @@ import world.Unit;
 
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
 
-import event.LogEvent;
+public class LogParser extends SwingWorker<Void, Integer> {
 
-public class LogParser {
+	private LogReport report;
+	private List<EventParser> eventParsers = new ArrayList<EventParser>();
+	private String fileName;
+	private ParsingTab parsingTab;
+	
+	public LogParser(String fileName, ParsingTab parsingTab) {
+		this.fileName = fileName;
+		this.parsingTab = parsingTab;
+	}
 
-	LogReport report;
-
-	List<EventParser> eventParsers = new ArrayList<EventParser>();
-
-	public LogParser(String string) throws FileNotFoundException,
-			java.text.ParseException {
-
-		long start = System.nanoTime();
-
-		report = new LogReport();
+	public void parse() throws FileNotFoundException, java.text.ParseException {
+		report = LogReport.getInstance();
+		report.reset();
 
 		initParsers();
-		System.err.println("Parser inited  - t" + (System.nanoTime() - start)
-				/ 1000000000.0);
-		Scanner scanner = new Scanner(new File(string), "UTF-8");
 
-		while (scanner.hasNextLine()) {
+		File file = new File(this.fileName);
+		long max = file.length();
+		long total = 0;
+		int last = 0;
+		Scanner scanner = new Scanner(file, "UTF-8");
+
+		setProgress(0);
+
+		while (scanner.hasNextLine() && !isCancelled()) {
 			String line = scanner.nextLine();
-
+			total += line.length();
+			int percent = (int) (((double) total / (double) max) * 10000.0);
+			if (percent > last) {
+				last = percent;
+				publish(percent);
+			}
 			try {
 				LogEvent event = parserEvent(line);
 
@@ -50,8 +66,8 @@ public class LogParser {
 			} catch (ParseException e) {
 				System.err.println(e.getMessage());
 			}
-
 		}
+		publish(10000);
 	}
 
 	private void initParsers() {
@@ -60,7 +76,6 @@ public class LogParser {
 		eventParsers.add(new SpellEventParser(report));
 		eventParsers.add(new SpecialDamageEventParser(report));
 		eventParsers.add(new SpecialsEventParser());
-
 	}
 
 	private LogEvent parserEvent(String line) throws ParseException,
@@ -240,5 +255,23 @@ public class LogParser {
 
 	public LogReport getReport() {
 		return report;
+	}
+
+	@Override
+	protected Void doInBackground() throws Exception {
+		parse();
+		return null;
+	}
+	
+	@Override
+	protected void process(List<Integer> chunks) {
+		for (Integer nb : chunks){
+			parsingTab.update(nb);
+		}
+	}
+	
+	@Override
+	protected void done() {
+		parsingTab.done();
 	}
 }
