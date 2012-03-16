@@ -32,8 +32,8 @@ public class MainWindow extends JFrame {
 		tabs.addTab("Parsing", new ParsingTab());
 		tabs.addTab("All", new ReportTab());
 		
-		tabs.setTabComponentAt(0,createTab("Parsing","./img/small/inv_scroll_01.jpg"));
-		tabs.setTabComponentAt(1,createTab("All","./img/small/inv_scroll_02.jpg"));
+		tabs.setTabComponentAt(0,createTab("Parsing","./img/medium/inv_scroll_01.jpg"));
+		tabs.setTabComponentAt(1,createTab("All","./img/medium/inv_scroll_02.jpg"));
 		
 		add(tabs);
 	}
