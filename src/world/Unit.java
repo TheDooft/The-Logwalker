@@ -3,8 +3,6 @@ package world;
 import java.util.ArrayList;
 import java.util.List;
 
-import report.UnitActivity;
-
 
 public class Unit {
 
@@ -34,14 +32,14 @@ public class Unit {
     private final String guid;
     private final String name;
     private final long flags;
-	private List<UnitActivity> activities;
+	//private List<UnitActivity> activities;
 
     public Unit(String guid, String name, long flags) {
         this.guid = guid;
         this.name = name;
         this.flags = flags;
-        this.activities = new ArrayList<UnitActivity>();
-        this.activities.add(new UnitActivity(this));
+        //this.activities = new ArrayList<UnitActivity>();
+       // this.activities.add(new UnitActivity(this));
 
     }
 
@@ -78,9 +76,6 @@ public class Unit {
         return true;
     }
 
-
-
-
     public static Unit nil = new Unit("0000000000000000", "nil", 0);
 
     public boolean isPlayer() {
@@ -91,7 +86,7 @@ public class Unit {
         return ((flags & REACTION_MASK) == REACTION_HOSTILE) && ((flags & TYPE_MASK) == TYPE_NPC);
     }
 
-	public UnitActivity getLastActivity() {
+	/*public UnitActivity getLastActivity() {
 		return activities.get(activities.size() -1);
 	}
 
@@ -103,10 +98,5 @@ public class Unit {
 
 	public List<UnitActivity> getActivities() {
 		return activities;
-	}
-
-
-
-
-
+	}*/
 }

@@ -1,6 +1,6 @@
 package parser;
 
-import report.LogReport;
+import world.Spell;
 import world.Timestamp;
 import world.Unit;
 
@@ -13,10 +13,7 @@ import event.LogEvent;
 
 public class SpecialDamageEventParser extends EventParser {
 
-	private final LogReport report;
-
-	public SpecialDamageEventParser(LogReport report) {
-		this.report = report;
+	public SpecialDamageEventParser() {
 	}
 
 	@Override
@@ -28,8 +25,7 @@ public class SpecialDamageEventParser extends EventParser {
 		String key = params[0];
 
 		if (key.equals("DAMAGE_SHIELD")) {
-			return new DamageShieldEvent(time, source, target, report
-					.getSpellManager().parseSpell(params[7],
+			return new DamageShieldEvent(time, source, target, new Spell(params[7],
 							LogParser.parseString(params[8]),
 							LogParser.parseInt(params[9])),
 					LogParser.parseDamage(params, 10));
@@ -37,8 +33,7 @@ public class SpecialDamageEventParser extends EventParser {
 			return new EnvironmentalDamageEvent(time, source, target,
 					params[7], LogParser.parseDamage(params, 8));
 		} else if (key.equals("DAMAGE_SPLIT")) {
-			return new DamageSplitEvent(time, source, target, report
-					.getSpellManager().parseSpell(params[7],
+			return new DamageSplitEvent(time, source, target, new Spell(params[7],
 							LogParser.parseString(params[8]),
 							LogParser.parseInt(params[9])),
 					LogParser.parseDamage(params, 10));

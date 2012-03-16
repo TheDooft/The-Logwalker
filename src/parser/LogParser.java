@@ -14,7 +14,6 @@ import javax.swing.SwingWorker;
 import report.Damage;
 import report.Energize;
 import report.Heal;
-import report.LogReport;
 import report.Miss;
 import report.Miss.Type;
 import world.Timestamp;
@@ -24,7 +23,6 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseExceptio
 
 public class LogParser extends SwingWorker<Void, Integer> {
 
-	private LogReport report;
 	private List<EventParser> eventParsers = new ArrayList<EventParser>();
 	private String fileName;
 	private ParsingTab parsingTab;
@@ -35,8 +33,6 @@ public class LogParser extends SwingWorker<Void, Integer> {
 	}
 
 	public void parse() throws FileNotFoundException, java.text.ParseException {
-		report = LogReport.getInstance();
-		report.reset();
 
 		initParsers();
 
@@ -60,7 +56,7 @@ public class LogParser extends SwingWorker<Void, Integer> {
 				LogEvent event = parserEvent(line);
 
 				if (event != null) {
-					report.addEvent(event);
+//					report.addEvent(event);
 				}
 
 			} catch (ParseException e) {
@@ -73,8 +69,8 @@ public class LogParser extends SwingWorker<Void, Integer> {
 	private void initParsers() {
 		eventParsers.add(new SwingEventParser());
 		eventParsers.add(new RangeEventParser());
-		eventParsers.add(new SpellEventParser(report));
-		eventParsers.add(new SpecialDamageEventParser(report));
+		eventParsers.add(new SpellEventParser());
+		eventParsers.add(new SpecialDamageEventParser());
 		eventParsers.add(new SpecialsEventParser());
 	}
 
@@ -116,10 +112,10 @@ public class LogParser extends SwingWorker<Void, Integer> {
 
 		String key = splitParam[0];
 
-		Unit sourceUnit = report.getUnitManager().parseUnit(
+		Unit sourceUnit = new Unit(
 				parseGuid(splitParam[1]), parseString(splitParam[2]),
 				parseLong(splitParam[3]));
-		Unit targetUnit = report.getUnitManager().parseUnit(
+		Unit targetUnit = new Unit(
 				parseGuid(splitParam[4]), parseString(splitParam[5]),
 				parseLong(splitParam[6]));
 
@@ -251,10 +247,6 @@ public class LogParser extends SwingWorker<Void, Integer> {
 
 		return new Energize(amount, type);
 
-	}
-
-	public LogReport getReport() {
-		return report;
 	}
 
 	@Override

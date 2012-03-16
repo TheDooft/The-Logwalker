@@ -1,6 +1,5 @@
 package parser;
 
-import report.LogReport;
 import world.Spell;
 import world.Timestamp;
 import world.Unit;
@@ -29,7 +28,6 @@ import event.SpellMissedEvent;
 import event.SpellPeriodicDamageEvent;
 import event.SpellPeriodicEnergizeEvent;
 import event.SpellPeriodicHealEvent;
-
 import event.SpellPeriodicMissedEvent;
 import event.SpellResurrectEvent;
 import event.SpellStolenEvent;
@@ -37,10 +35,7 @@ import event.SpellSummonEvent;
 
 public class SpellEventParser extends EventParser {
 
-	private final LogReport report;
-
-	public SpellEventParser(LogReport report) {
-		this.report = report;
+	public SpellEventParser() {
 	}
 
 	@Override
@@ -132,14 +127,12 @@ public class SpellEventParser extends EventParser {
 	}
 
 	public Spell getExtraSpell(String[] params) {
-		return report.getSpellManager()
-				.parseSpell(params[10], LogParser.parseString(params[11]),
+		return new Spell(params[10], LogParser.parseString(params[11]),
 						Integer.parseInt(params[12]));
 	}
 
 	public Spell getSpell(String[] params) {
-		return report.getSpellManager()
-				.parseSpell(params[7], LogParser.parseString(params[8]),
+		return new Spell(params[7], LogParser.parseString(params[8]),
 						LogParser.parseInt(params[9]));
 	}
 
