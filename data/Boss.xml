@@ -1,86 +1,91 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<instance>
-	<name>Dragon Soul</name>
-	<bossList>
-		<boss>
-			<name>Morchok</name>
-			<idleEnd>5</idleEnd>
-			<icon>achievment_boss_morchok.jpg</icon>
-			<image>ui-ej-boss-morchok.png</image>
-			<actorUIDs>
-				<uid>55265</uid>
-			</actorUIDs>
-		</boss>
-		<boss>
-			<name>Warlord Zon'ozz</name>
-			<idleEnd>5</ildeEnd>
-			<icon>achievment_boss_zonozz.jpg</icon>
-			<image>ui-ej-boss-warlord-zonozz.png</image>
-			<actorUIDs>
-				<uid>55308</uid>
-			</actorUIDs>
-		</boss>
-		<boss>
-			<name>Yor'sahj the Unsleeping</name>
-			<idleEnd>5</ildeEnd>
-			<icon>achievment_boss_yorsahj.jpg</icon>
-			<image>ui-ej-boss-yorsahj-the-unsleeping.png</image>
-			<actorUIDs>
-				<uid>55312</uid>
-			</actorUIDs>
-		</boss>
-		<boss>
-			<name>Hagara the Stormbinder</name>
-			<idleEnd>5</ildeEnd>
-			<icon>achievment_boss_hagara.jpg</icon>
-			<image>ui-ej-boss-hagara.png</image>
-			<actorUIDs>
-				<uid>55689</uid>
-			</actorUIDs>
-		</boss>
-		<boss>
-			<name>Ultraxion</name>
-			<idleEnd>5</ildeEnd>
-			<icon>achievment_boss_ultraxion.jpg</icon>
-			<image>ui-ej-boss-ultraxion.png</image>
-			<actorUIDs>
-				<uid>55294</uid>
-			</actorUIDs>
-		</boss>
-		<boss>
-			<name>Warmaster Blackhorn</name>
-			<idleEnd>5</ildeEnd>
-			<icon>achievment_boss_blackhorn.jpg</icon>
-			<image>ui-ej-boss-warmasterblackhorn.png</image>
-			<actorUIDs>
-				<uid>56427</uid>
-				<uid>56781</uid>
-				<uid>56855</uid>
-				<uid>56854</uid>
-				<uid>56848</uid>
-				<uid>56923</uid>
-			</actorUIDs>
-		</boss>
-		<boss>
-			<name>Spine of Deathwing</name>
-			<idleEnd>5</ildeEnd>
-			<icon>achievment_boss_spineofdeathwing.jpg</icon>
-			<image>ui-ej-boss-deathwing.png</image>
-			<actorUIDs>
-				<uid>56341</uid>
-				<uid>56162</uid>
-				<uid>53890</uid>
-				<uid>53889</uid>
-			</actorUIDs>
-		</boss>
-		<boss>
-			<name>Madness of Deathwing</name>
-			<idleEnd>30</ildeEnd>
-			<icon>achievment_boss_madnessofdeathwing.jpg</icon>
-			<image>ui-ej-boss-corrupted-deathwing.png</image>
-			<actorUIDs>
-				<uid></uid>
-			</actorUIDs>
-		</boss>
-	</bossList>
-</instance>
+		<bossList>
+			<boss>
+				<name>Morchok</name>
+				<idleEnd>5</idleEnd>
+				<icon>achievment_boss_morchok.jpg</icon>
+				<image>ui-ej-boss-morchok.png</image>
+				<actorUIDs>
+					<uid>55265</uid>
+				</actorUIDs>
+			</boss>
+			<boss>
+				<name>Warlord Zon'ozz</name>
+				<idleEnd>5</idleEnd>
+				<icon>achievment_boss_zonozz.jpg</icon>
+				<image>ui-ej-boss-warlord-zonozz.png</image>
+				<actorUIDs>
+					<uid>55308</uid>
+				</actorUIDs>
+			</boss>
+			<boss>
+				<name>Yor'sahj the Unsleeping</name>
+				<idleEnd>5</idleEnd>
+				<icon>achievment_boss_yorsahj.jpg</icon>
+				<image>ui-ej-boss-yorsahj-the-unsleeping.png</image>
+				<actorUIDs>
+					<uid>55312</uid>
+				</actorUIDs>
+			</boss>
+			<boss>
+				<name>Hagara the Stormbinder</name>
+				<idleEnd>5</idleEnd>
+				<icon>achievment_boss_hagara.jpg</icon>
+				<image>ui-ej-boss-hagara.png</image>
+				<actorUIDs>
+					<uid>55689</uid>
+				</actorUIDs>
+			</boss>
+			<boss>
+				<name>Ultraxion</name>
+				<idleEnd>5</idleEnd>
+				<icon>achievment_boss_ultraxion.jpg</icon>
+				<image>ui-ej-boss-ultraxion.png</image>
+				<actorUIDs>
+					<uid>55294</uid>
+				</actorUIDs>
+			</boss>
+			<boss>
+				<name>Warmaster Blackhorn</name>
+				<idleEnd>5</idleEnd>
+				<icon>achievment_boss_blackhorn.jpg</icon>
+				<image>ui-ej-boss-warmasterblackhorn.png</image>
+				<actorUIDs>
+					<uid>56427</uid>
+					<uid>56781</uid>
+					<uid>56855</uid>
+					<uid>56854</uid>
+					<uid>56848</uid>
+					<uid>56923</uid>
+				</actorUIDs>
+			</boss>
+			<boss>
+				<name>Spine of Deathwing</name>
+				<idleEnd>5</idleEnd>
+				<icon>achievment_boss_spineofdeathwing.jpg</icon>
+				<image>ui-ej-boss-deathwing.png</image>
+				<actorUIDs>
+					<uid>56341</uid>
+					<uid>56162</uid>
+					<uid>53890</uid>
+					<uid>53889</uid>
+				</actorUIDs>
+			</boss>
+			<boss>
+				<name>Madness of Deathwing</name>
+				<idleEnd>30</idleEnd>
+				<icon>achievment_boss_madnessofdeathwing.jpg</icon>
+				<image>ui-ej-boss-corrupted-deathwing.png</image>
+				<actorUIDs>
+					<uid>56173</uid>
+					<uid>56263</uid>
+					<uid>57479</uid>
+					<uid>56262</uid>
+					<uid>56188</uid>
+					<uid>56471</uid>
+					<uid>57798</uid>
+					<uid>56710</uid>
+					<uid>56724</uid>
+				</actorUIDs>
+			</boss>
+		</bossList>

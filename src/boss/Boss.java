@@ -1,13 +1,15 @@
 package boss;
 
+import java.util.ArrayList;
+
 public class Boss {
 	private String name;
 	private int idleTime;
 	private String icon;
 	private String image;
-	private int[] uids;
+	private ArrayList<Integer> uids;
 
-	public Boss(String name, int idleTime, String icon, String image,int[] uids) {
+	public Boss(String name, int idleTime, String icon, String image,ArrayList<Integer> uids) {
 		this.name = name;
 		this.idleTime = idleTime;
 		this.icon = icon;
@@ -31,7 +33,7 @@ public class Boss {
 		return image;
 	}
 	
-	public int[] getUids() {
+	public ArrayList<Integer> getUids() {
 		return uids;
 	}
 }

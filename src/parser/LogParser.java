@@ -16,6 +16,7 @@ import report.Energize;
 import report.Heal;
 import report.Miss;
 import report.Miss.Type;
+import report.ReportEngine;
 import world.Timestamp;
 import world.Unit;
 
@@ -23,6 +24,32 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseExceptio
 
 public class LogParser extends SwingWorker<Void, Integer> {
 
+	public static final int BASE_PARAM1 = -1;
+	public static final int BASE_PARAM2 = 0;
+	public static final int BASE_PARAM3 = -1;
+	public static final int BASE_PARAM4 = 1;
+	public static final int BASE_PARAM5 = 2;
+	public static final int BASE_PARAM6 = 3;
+	public static final int BASE_PARAM7 = 4;
+	public static final int BASE_PARAM8 = 5;
+	public static final int BASE_PARAM9 = 6;
+	public static final int BASE_PARAM10 = 7;
+	public static final int BASE_PARAM11 = 8;
+	
+	public static final int PREFIX_PARAM1 = 9;
+	public static final int PREFIX_PARAM2 = 10;
+	public static final int PREFIX_PARAM3 = 11;
+	
+	public static final int SUFFIX_PARAM1 = 12;
+	public static final int SUFFIX_PARAM2 = 13;
+	public static final int SUFFIX_PARAM3 = 14;
+	public static final int SUFFIX_PARAM4 = 15;
+	public static final int SUFFIX_PARAM5 = 16;
+	public static final int SUFFIX_PARAM6 = 17;
+	public static final int SUFFIX_PARAM7 = 18;
+	public static final int SUFFIX_PARAM8 = 19;
+	public static final int SUFFIX_PARAM9 = 20;
+	
 	private List<EventParser> eventParsers = new ArrayList<EventParser>();
 	private String fileName;
 	private ParsingTab parsingTab;
@@ -35,7 +62,8 @@ public class LogParser extends SwingWorker<Void, Integer> {
 	public void parse() throws FileNotFoundException, java.text.ParseException {
 
 		initParsers();
-
+		
+		ReportEngine report = ReportEngine.getInstance();
 		File file = new File(this.fileName);
 		long max = file.length();
 		long total = 0;
@@ -43,7 +71,7 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		Scanner scanner = new Scanner(file, "UTF-8");
 
 		setProgress(0);
-
+		int i = 0;
 		while (scanner.hasNextLine() && !isCancelled()) {
 			String line = scanner.nextLine();
 			total += line.length();
@@ -53,12 +81,20 @@ public class LogParser extends SwingWorker<Void, Integer> {
 				publish(percent);
 			}
 			try {
+				long t1 = System.nanoTime();
 				LogEvent event = parserEvent(line);
+				long t2 = System.nanoTime();
 
+				System.out.println("line " + ++i + " parsed in " + ((t2 - t1) / 1000.0) + "ms");
+				
 				if (event != null) {
-//					report.addEvent(event);
+					t1 = System.nanoTime();
+					report.addEvent(event);
+					report.clear();
+					t2 = System.nanoTime();
+					System.out.println("line " + i + " added  in " + ((t2 - t1) / 1000.0) + "ms");
 				}
-
+				System.out.println("Free mem : " + Runtime.getRuntime().freeMemory());
 			} catch (ParseException e) {
 				System.err.println(e.getMessage());
 			}
@@ -111,13 +147,13 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		}
 
 		String key = splitParam[0];
-
+		
 		Unit sourceUnit = new Unit(
-				parseGuid(splitParam[1]), parseString(splitParam[2]),
-				parseLong(splitParam[3]));
+				parseGuid(splitParam[BASE_PARAM4]), parseString(splitParam[BASE_PARAM5]),
+				parseLong(splitParam[BASE_PARAM6]), parseLong(splitParam[BASE_PARAM7]));
 		Unit targetUnit = new Unit(
-				parseGuid(splitParam[4]), parseString(splitParam[5]),
-				parseLong(splitParam[6]));
+				parseGuid(splitParam[BASE_PARAM8]), parseString(splitParam[BASE_PARAM9]),
+				parseLong(splitParam[BASE_PARAM10]), parseLong(splitParam[BASE_PARAM11]));
 
 		for (EventParser eventParser : eventParsers) {
 			if (eventParser.match(key)) {
@@ -258,12 +294,12 @@ public class LogParser extends SwingWorker<Void, Integer> {
 	@Override
 	protected void process(List<Integer> chunks) {
 		for (Integer nb : chunks){
-			parsingTab.update(nb);
+			parsingTab.update("Parsing - ",nb);
 		}
 	}
 	
 	@Override
 	protected void done() {
-		parsingTab.done();
+		parsingTab.parseDone();
 	}
 }

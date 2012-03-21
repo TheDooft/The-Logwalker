@@ -12,37 +12,46 @@ import event.PartyKillEvent;
 import event.UnitDestroyedEvent;
 import event.UnitDiedEvent;
 
-public class SpecialsEventParser extends EventParser{
+public class SpecialsEventParser extends EventParser {
 
-    public SpecialsEventParser() {
-    }
+	public SpecialsEventParser() {
+	}
 
-    @Override
-    public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) throws ParseException {
+	@Override
+	public LogEvent parse(Timestamp time, Unit source, Unit target,
+			String[] params) throws ParseException {
 
-        //return new SwingEvent(time, source, target);
+		// return new SwingEvent(time, source, target);
 
-        String key = params[0];
+		String key = params[LogParser.BASE_PARAM2];
 
-        if(key.equals("UNIT_DIED")) {
-            return new UnitDiedEvent(time, target);
-        }else if(key.equals("UNIT_DESTROYED")) {
-            return new UnitDestroyedEvent(time, target);
-        }else if(key.equals("PARTY_KILL")) {
-            return new PartyKillEvent(time, source, target);
-        }        else if(key.equals("ENCHANT_APPLIED")) {
-            return new EnchantAppliedEvent(time,source, target, LogParser.parseString(params[7]),Integer.valueOf(params[8]),LogParser.parseString(params[9]));
-        }else if(key.equals("ENCHANT_REMOVED")) {
-            return new EnchantRemovedEvent(time,source, target, LogParser.parseString(params[7]),Integer.valueOf(params[8]),LogParser.parseString(params[9]));
-        }
+		if (key.equals("UNIT_DIED")) {
+			return new UnitDiedEvent(time, target);
+		} else if (key.equals("UNIT_DESTROYED")) {
+			return new UnitDestroyedEvent(time, target);
+		} else if (key.equals("PARTY_KILL")) {
+			return new PartyKillEvent(time, source, target);
+		} else if (key.equals("ENCHANT_APPLIED")) {
+			return new EnchantAppliedEvent(time, source, target,
+					LogParser.parseString(params[LogParser.PREFIX_PARAM1]),
+					Integer.valueOf(params[LogParser.PREFIX_PARAM2]),
+					LogParser.parseString(params[LogParser.PREFIX_PARAM3]));
+		} else if (key.equals("ENCHANT_REMOVED")) {
+			return new EnchantRemovedEvent(time, source, target,
+					LogParser.parseString(params[LogParser.PREFIX_PARAM1]),
+					Integer.valueOf(params[LogParser.PREFIX_PARAM2]),
+					LogParser.parseString(params[LogParser.PREFIX_PARAM3]));
+		}
 
-        throw new ParseException("Unknown special event type "+key);
+		throw new ParseException("Unknown special event type " + key);
 
-    }
+	}
 
-    @Override
-    public boolean match(String key) {
-        return key.equals("ENCHANT_APPLIED") || key.equals("ENCHANT_REMOVED") || key.equals("PARTY_KILL") || key.equals("UNIT_DIED") || key.equals("UNIT_DESTROYED");
-    }
+	@Override
+	public boolean match(String key) {
+		return key.equals("ENCHANT_APPLIED") || key.equals("ENCHANT_REMOVED")
+				|| key.equals("PARTY_KILL") || key.equals("UNIT_DIED")
+				|| key.equals("UNIT_DESTROYED");
+	}
 
 }

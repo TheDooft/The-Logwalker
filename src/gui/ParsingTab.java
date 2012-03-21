@@ -16,6 +16,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 import parser.LogParser;
+import report.Splitter;
 
 public class ParsingTab extends JPanel implements ActionListener{
 	/**
@@ -38,7 +39,7 @@ public class ParsingTab extends JPanel implements ActionListener{
 		JPanel sourcePanel = new JPanel();
 
 		this.textFieldFileName = new JTextField(
-				"./sample/WoWCombatLog-Light.txt", 40);
+				"./sample/WoWCombatLog.txt", 40);
 		this.textFieldFileName.setMaximumSize(textFieldFileName
 				.getPreferredSize());
 		buttonBrowse.addActionListener(this);
@@ -101,12 +102,17 @@ public class ParsingTab extends JPanel implements ActionListener{
 		}
 	}
 
-	public void update(int progress) {
+	public void update(String phase,int progress) {
 		DecimalFormat df = new DecimalFormat ( ) ;
 		df.setMaximumFractionDigits(2);
 		df.setMinimumFractionDigits(2); 
 		progressBar.setValue(progress);
-		progressBar.setString(df.format(progress / 100.0) + " %");
+		progressBar.setString(phase + df.format(progress / 100.0) + " %");
+	}
+	
+	public void parseDone(){
+		Splitter splitter = new Splitter(this);
+		splitter.execute();
 	}
 	
 	public void done() {

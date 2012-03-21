@@ -17,12 +17,12 @@ public class SwingEventParser extends EventParser{
     @Override
     public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) throws ParseException {
 
-        String key = params[0];
+        String key = params[LogParser.BASE_PARAM2];
 
         if(key.equals("SWING_DAMAGE")) {
-            return new SwingDamageEvent(time, source, target, LogParser.parseDamage(params, 7));
+            return new SwingDamageEvent(time, source, target, LogParser.parseDamage(params, LogParser.PREFIX_PARAM1));
         }else if(key.equals("SWING_MISSED")) {
-            return new SwingMissed(time, source, target, LogParser.parseMiss(params, 7));
+            return new SwingMissed(time, source, target, LogParser.parseMiss(params, LogParser.PREFIX_PARAM1));
         }
 
         throw new ParseException("Unknown event type "+key);

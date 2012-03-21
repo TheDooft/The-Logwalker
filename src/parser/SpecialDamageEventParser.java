@@ -22,21 +22,21 @@ public class SpecialDamageEventParser extends EventParser {
 
 		// return new SwingEvent(time, source, target);
 
-		String key = params[0];
+		String key = params[LogParser.BASE_PARAM2];
 
 		if (key.equals("DAMAGE_SHIELD")) {
-			return new DamageShieldEvent(time, source, target, new Spell(params[7],
-							LogParser.parseString(params[8]),
-							LogParser.parseInt(params[9])),
-					LogParser.parseDamage(params, 10));
+			return new DamageShieldEvent(time, source, target, new Spell(params[LogParser.PREFIX_PARAM1],
+							LogParser.parseString(params[LogParser.PREFIX_PARAM2]),
+							LogParser.parseInt(params[LogParser.PREFIX_PARAM3])),
+					LogParser.parseDamage(params, LogParser.SUFFIX_PARAM1));
 		} else if (key.equals("ENVIRONMENTAL_DAMAGE")) {
 			return new EnvironmentalDamageEvent(time, source, target,
-					params[7], LogParser.parseDamage(params, 8));
+					params[LogParser.PREFIX_PARAM1], LogParser.parseDamage(params, LogParser.PREFIX_PARAM2));
 		} else if (key.equals("DAMAGE_SPLIT")) {
-			return new DamageSplitEvent(time, source, target, new Spell(params[7],
-							LogParser.parseString(params[8]),
-							LogParser.parseInt(params[9])),
-					LogParser.parseDamage(params, 10));
+			return new DamageSplitEvent(time, source, target, new Spell(params[LogParser.PREFIX_PARAM1],
+							LogParser.parseString(params[LogParser.PREFIX_PARAM2]),
+							LogParser.parseInt(params[LogParser.PREFIX_PARAM3])),
+					LogParser.parseDamage(params, LogParser.SUFFIX_PARAM1));
 		}
 
 		throw new ParseException("Unknown event type " + key);

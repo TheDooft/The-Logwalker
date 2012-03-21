@@ -32,12 +32,14 @@ public class Unit {
     private final String guid;
     private final String name;
     private final long flags;
+	private final long flags2;
 	//private List<UnitActivity> activities;
 
-    public Unit(String guid, String name, long flags) {
+    public Unit(String guid, String name, long flags, long flags2) {
         this.guid = guid;
         this.name = name;
         this.flags = flags;
+        this.flags2 = flags2;
         //this.activities = new ArrayList<UnitActivity>();
        // this.activities.add(new UnitActivity(this));
 
@@ -76,7 +78,7 @@ public class Unit {
         return true;
     }
 
-    public static Unit nil = new Unit("0000000000000000", "nil", 0);
+    public static Unit nil = new Unit("0000000000000000", "nil", 0, 0);
 
     public boolean isPlayer() {
         return ((flags & CONTROL_MASK) == CONTROL_PLAYER) && ((flags & TYPE_MASK) == TYPE_PLAYER);
