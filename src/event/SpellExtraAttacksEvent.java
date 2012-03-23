@@ -1,13 +1,12 @@
 package event;
 
 import world.Spell;
-import world.Timestamp;
 import world.Unit;
 
 public class SpellExtraAttacksEvent extends SpellEvent {
 	private final int amount;
 
-	public SpellExtraAttacksEvent(Timestamp time, Unit caster, Unit target,
+	public SpellExtraAttacksEvent(int time, Unit caster, Unit target,
 			Spell spell, int amount) {
 		super(time, caster, target, spell);
 		this.amount = amount;

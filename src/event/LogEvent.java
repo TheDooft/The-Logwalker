@@ -1,15 +1,14 @@
 package event;
 
-import world.Timestamp;
 import world.Unit;
 
 public abstract class LogEvent {
 
-    private final Timestamp time;
+    private final int time;
     protected final Unit source;
     protected final Unit target;
 
-    public LogEvent(Timestamp time, Unit source, Unit target) {
+    public LogEvent(int time, Unit source, Unit target) {
         this.time = time;
         this.source = source;
         this.target = target;
@@ -35,7 +34,7 @@ public abstract class LogEvent {
         return source.equals(unit) || target.equals(unit);
     }
 
-    public Timestamp getTime() {
+    public int getTime() {
         return time;
     }
 

@@ -1,30 +1,29 @@
 package event;
 
-import world.Timestamp;
+import world.Item;
+import world.Spell;
 import world.Unit;
-
 
 public class EnchantRemovedEvent extends LogEvent {
 
+	private final Spell spell;
+	private final Item item;
 
-    private final String spellName;
-    private final Integer itemId;
-    private final String itemName;
+	public EnchantRemovedEvent(int time, Unit source, Unit target,
+			String spellName, Integer itemId, String itemName) {
+		super(time, source, target);
+		this.spell = new Spell(0, spellName, 0);
+		this.item = Item.getInstance(itemId, itemName);
+	}
 
-    public EnchantRemovedEvent(Timestamp time, Unit source, Unit target, String spellName, Integer itemId, String itemName) {
-        super(time, source, target);
-        this.spellName = spellName;
-        this.itemId = itemId;
-        this.itemName = itemName;
-    }
-
-    @Override
-    protected String getText() {
-        return target.getName() + " meurt";
-    }
-
-
-
-
+	@Override
+	protected String getText() {
+		if (target == Unit.nil) {
+			return source.getName() + " removes " + spell.getName() + " on "
+					+ item.getName();
+		}
+		return source.getName() + " removes " + spell.getName() + " on "
+				+ target.getName() + " " + item.getName();
+	}
 
 }

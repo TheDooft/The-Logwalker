@@ -1,6 +1,5 @@
 package parser;
 
-import world.Timestamp;
 import world.Unit;
 
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
@@ -15,7 +14,7 @@ public class SwingEventParser extends EventParser{
     }
 
     @Override
-    public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) throws ParseException {
+    public LogEvent parse(int time, Unit source, Unit target, String[] params) throws ParseException {
 
         String key = params[LogParser.BASE_PARAM2];
 

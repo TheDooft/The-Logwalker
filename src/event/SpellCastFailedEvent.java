@@ -1,25 +1,27 @@
 package event;
 
+import world.FailedType;
 import world.Spell;
-import world.Timestamp;
 import world.Unit;
 
 public class SpellCastFailedEvent extends SpellEvent {
 
-    private final String failedType;
+	private final String failedType;
 
-    public SpellCastFailedEvent(Timestamp time, Unit caster, Unit target, Spell spell, String failedType) {
-        super(time, caster, target, spell);
-        this.failedType = failedType;
-    }
+	public SpellCastFailedEvent(int time, Unit caster, Unit target,
+			Spell spell, String failedType) {
+		super(time, caster, target, spell);
+		this.failedType = FailedType.getFailedType(failedType);
+	}
 
-    @Override
-    protected String getText() {
-        return null;
-    }
-
-
-
-
+	@Override
+	protected String getText() {
+		String ret = new String();
+		ret += source.getName() + " " + spell.getName() + " failed ";
+		if (target != null)
+			ret += " on " + target.getName();
+		ret += ". Reason: " + failedType + ".";
+		return ret;
+	}
 
 }

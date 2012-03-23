@@ -1,11 +1,10 @@
 package event;
 
-import world.Timestamp;
 import world.Unit;
 
 public class SwingEvent extends LogEvent {
 
-    public SwingEvent(Timestamp time, Unit source, Unit target) {
+    public SwingEvent(int time, Unit source, Unit target) {
         super(time, source, target);
     }
 

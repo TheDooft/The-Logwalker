@@ -5,6 +5,7 @@ import gui.ParsingTab;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -35,11 +36,11 @@ public class LogParser extends SwingWorker<Void, Integer> {
 	public static final int BASE_PARAM9 = 6;
 	public static final int BASE_PARAM10 = 7;
 	public static final int BASE_PARAM11 = 8;
-	
+
 	public static final int PREFIX_PARAM1 = 9;
 	public static final int PREFIX_PARAM2 = 10;
 	public static final int PREFIX_PARAM3 = 11;
-	
+
 	public static final int SUFFIX_PARAM1 = 12;
 	public static final int SUFFIX_PARAM2 = 13;
 	public static final int SUFFIX_PARAM3 = 14;
@@ -49,11 +50,11 @@ public class LogParser extends SwingWorker<Void, Integer> {
 	public static final int SUFFIX_PARAM7 = 18;
 	public static final int SUFFIX_PARAM8 = 19;
 	public static final int SUFFIX_PARAM9 = 20;
-	
+
 	private List<EventParser> eventParsers = new ArrayList<EventParser>();
 	private String fileName;
 	private ParsingTab parsingTab;
-	
+
 	public LogParser(String fileName, ParsingTab parsingTab) {
 		this.fileName = fileName;
 		this.parsingTab = parsingTab;
@@ -62,7 +63,7 @@ public class LogParser extends SwingWorker<Void, Integer> {
 	public void parse() throws FileNotFoundException, java.text.ParseException {
 
 		initParsers();
-		
+
 		ReportEngine report = ReportEngine.getInstance();
 		File file = new File(this.fileName);
 		long max = file.length();
@@ -71,7 +72,7 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		Scanner scanner = new Scanner(file, "UTF-8");
 
 		setProgress(0);
-		int i = 0;
+		//int i = 0;
 		while (scanner.hasNextLine() && !isCancelled()) {
 			String line = scanner.nextLine();
 			total += line.length();
@@ -81,20 +82,25 @@ public class LogParser extends SwingWorker<Void, Integer> {
 				publish(percent);
 			}
 			try {
-				long t1 = System.nanoTime();
+				//long m1 = Runtime.getRuntime().freeMemory();
+				//long t1 = System.nanoTime();
 				LogEvent event = parserEvent(line);
-				long t2 = System.nanoTime();
+				//long t2 = System.nanoTime();
 
-				System.out.println("line " + ++i + " parsed in " + ((t2 - t1) / 1000.0) + "ms");
-				
+				// System.out.println("line " + ++i + " parsed in " + ((t2 - t1)
+				// / 1000.0) + "ms");
+
 				if (event != null) {
-					t1 = System.nanoTime();
+				//	t1 = System.nanoTime();
+					// event.
 					report.addEvent(event);
-					report.clear();
-					t2 = System.nanoTime();
-					System.out.println("line " + i + " added  in " + ((t2 - t1) / 1000.0) + "ms");
+					// report.clear();
+				//	t2 = System.nanoTime();
+					// System.out.println("line " + i + " added  in " + ((t2 -
+					// t1) / 1000.0) + "ms");
 				}
-				System.out.println("Free mem : " + Runtime.getRuntime().freeMemory());
+				//long m2 = Runtime.getRuntime().freeMemory();
+				// System.out.println("Diff mem : " + (m2 - m1));
 			} catch (ParseException e) {
 				System.err.println(e.getMessage());
 			}
@@ -120,7 +126,7 @@ public class LogParser extends SwingWorker<Void, Integer> {
 							+ line);
 		}
 
-		Timestamp time = new Timestamp(split[0], split[1]);
+		int time = Timestamp.getTime(split[0], split[1]);
 		String params = split[2];
 
 		String[] splitParam = params.split(",");
@@ -147,13 +153,15 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		}
 
 		String key = splitParam[0];
-		
-		Unit sourceUnit = new Unit(
-				parseGuid(splitParam[BASE_PARAM4]), parseString(splitParam[BASE_PARAM5]),
-				parseLong(splitParam[BASE_PARAM6]), parseLong(splitParam[BASE_PARAM7]));
-		Unit targetUnit = new Unit(
-				parseGuid(splitParam[BASE_PARAM8]), parseString(splitParam[BASE_PARAM9]),
-				parseLong(splitParam[BASE_PARAM10]), parseLong(splitParam[BASE_PARAM11]));
+
+		Unit sourceUnit = Unit.getInstance(splitParam[BASE_PARAM4],
+				parseString(splitParam[BASE_PARAM5]),
+				parseLong(splitParam[BASE_PARAM6]),
+				parseLong(splitParam[BASE_PARAM7]));
+		Unit targetUnit = Unit.getInstance(splitParam[BASE_PARAM8],
+				parseString(splitParam[BASE_PARAM9]),
+				parseLong(splitParam[BASE_PARAM10]),
+				parseLong(splitParam[BASE_PARAM11]));
 
 		for (EventParser eventParser : eventParsers) {
 			if (eventParser.match(key)) {
@@ -170,16 +178,16 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		return Long.parseLong(string.substring(2), 16);
 	}
 
+	public static BigInteger parseGuid(String string){
+		return new BigInteger(string.substring(2), 16);
+	}
+	
 	public static int parseInt(String string) {
 		return Integer.parseInt(string.substring(2), 16);
 	}
 
 	public static String parseString(String string) {
 		return string.substring(1, string.length() - 1);
-	}
-
-	public static String parseGuid(String string) {
-		return string.substring(2);
 	}
 
 	public static Damage parseDamage(String[] params, int index) {
@@ -290,14 +298,14 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		parse();
 		return null;
 	}
-	
+
 	@Override
 	protected void process(List<Integer> chunks) {
-		for (Integer nb : chunks){
-			parsingTab.update("Parsing - ",nb);
+		for (Integer nb : chunks) {
+			parsingTab.update("Parsing - ", nb);
 		}
 	}
-	
+
 	@Override
 	protected void done() {
 		parsingTab.parseDone();

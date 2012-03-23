@@ -1,7 +1,6 @@
 package parser;
 
 import world.Spell;
-import world.Timestamp;
 import world.Unit;
 
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
@@ -17,7 +16,7 @@ public class SpecialDamageEventParser extends EventParser {
 	}
 
 	@Override
-	public LogEvent parse(Timestamp time, Unit source, Unit target,
+	public LogEvent parse(int time, Unit source, Unit target,
 			String[] params) throws ParseException {
 
 		// return new SwingEvent(time, source, target);
@@ -25,7 +24,7 @@ public class SpecialDamageEventParser extends EventParser {
 		String key = params[LogParser.BASE_PARAM2];
 
 		if (key.equals("DAMAGE_SHIELD")) {
-			return new DamageShieldEvent(time, source, target, new Spell(params[LogParser.PREFIX_PARAM1],
+			return new DamageShieldEvent(time, source, target, Spell.getInstance(Integer.parseInt(params[LogParser.PREFIX_PARAM1]),
 							LogParser.parseString(params[LogParser.PREFIX_PARAM2]),
 							LogParser.parseInt(params[LogParser.PREFIX_PARAM3])),
 					LogParser.parseDamage(params, LogParser.SUFFIX_PARAM1));
@@ -33,7 +32,7 @@ public class SpecialDamageEventParser extends EventParser {
 			return new EnvironmentalDamageEvent(time, source, target,
 					params[LogParser.PREFIX_PARAM1], LogParser.parseDamage(params, LogParser.PREFIX_PARAM2));
 		} else if (key.equals("DAMAGE_SPLIT")) {
-			return new DamageSplitEvent(time, source, target, new Spell(params[LogParser.PREFIX_PARAM1],
+			return new DamageSplitEvent(time, source, target, Spell.getInstance(Integer.parseInt(params[LogParser.PREFIX_PARAM1]),
 							LogParser.parseString(params[LogParser.PREFIX_PARAM2]),
 							LogParser.parseInt(params[LogParser.PREFIX_PARAM3])),
 					LogParser.parseDamage(params, LogParser.SUFFIX_PARAM1));

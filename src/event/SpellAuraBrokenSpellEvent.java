@@ -1,25 +1,25 @@
 package event;
 
+import world.AuraType;
 import world.Spell;
-import world.Timestamp;
 import world.Unit;
 
 public class SpellAuraBrokenSpellEvent extends SpellEvent {
 	private final Spell extraSpell;
-	private final String auraType;
+	private final AuraType auraType;
 
-	public SpellAuraBrokenSpellEvent(Timestamp time, Unit caster, Unit target,
-			Spell spell, Spell extraSpell, String extraType) {
+	public SpellAuraBrokenSpellEvent(int time, Unit caster, Unit target,
+			Spell spell, Spell extraSpell, String auraType) {
 		super(time, caster, target, spell);
 		this.extraSpell = extraSpell;
-		this.auraType = extraType;
+		this.auraType = AuraType.valueOf(auraType);
 	}
 
 	public Spell getExtraSpell() {
 		return extraSpell;
 	}
 
-	public String getExtraType() {
+	public AuraType getExtraType() {
 		return auraType;
 	}
 

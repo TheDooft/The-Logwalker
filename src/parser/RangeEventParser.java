@@ -1,6 +1,5 @@
 package parser;
 
-import world.Timestamp;
 import world.Unit;
 import event.LogEvent;
 import event.RangeEvent;
@@ -11,7 +10,7 @@ public class RangeEventParser extends EventParser{
     }
 
     @Override
-    public LogEvent parse(Timestamp time, Unit source, Unit target, String[] params) {
+    public LogEvent parse(int time, Unit source, Unit target, String[] params) {
 
         return new RangeEvent(time, source, target);
     }

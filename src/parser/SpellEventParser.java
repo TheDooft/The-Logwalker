@@ -1,7 +1,6 @@
 package parser;
 
 import world.Spell;
-import world.Timestamp;
 import world.Unit;
 
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
@@ -42,7 +41,7 @@ public class SpellEventParser extends EventParser {
 	}
 
 	@Override
-	public LogEvent parse(Timestamp time, Unit source, Unit target,
+	public LogEvent parse(int time, Unit source, Unit target,
 			String[] params) throws ParseException {
 
 		String key = params[LogParser.BASE_PARAM2];
@@ -155,13 +154,13 @@ public class SpellEventParser extends EventParser {
 	}
 
 	public Spell getExtraSpell(String[] params) {
-		return new Spell(params[LogParser.SUFFIX_PARAM1],
+		return Spell.getInstance(Integer.parseInt(params[LogParser.SUFFIX_PARAM1]),
 				LogParser.parseString(params[LogParser.SUFFIX_PARAM2]),
 				Integer.parseInt(params[LogParser.SUFFIX_PARAM3]));
 	}
 
-	public Spell getSpell(String[] params) {
-		return new Spell(params[LogParser.PREFIX_PARAM1],
+	static public Spell getSpell(String[] params) {
+		return Spell.getInstance(Integer.parseInt(params[LogParser.PREFIX_PARAM1]),
 				LogParser.parseString(params[LogParser.PREFIX_PARAM2]),
 				LogParser.parseInt(params[LogParser.PREFIX_PARAM3]));
 	}

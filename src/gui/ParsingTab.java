@@ -39,7 +39,7 @@ public class ParsingTab extends JPanel implements ActionListener{
 		JPanel sourcePanel = new JPanel();
 
 		this.textFieldFileName = new JTextField(
-				"./sample/WoWCombatLog.txt", 40);
+				"./sample/WoWCombatLog-light.txt", 40);
 		this.textFieldFileName.setMaximumSize(textFieldFileName
 				.getPreferredSize());
 		buttonBrowse.addActionListener(this);

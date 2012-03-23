@@ -2,11 +2,9 @@ package report;
 
 import java.util.ArrayList;
 
-import event.LogEvent;
-
 import tools.FileManager;
-
 import boss.Boss;
+import event.LogEvent;
 
 public class ReportEngine {
 	private static ReportEngine instance;

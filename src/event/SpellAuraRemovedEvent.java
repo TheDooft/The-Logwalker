@@ -1,29 +1,27 @@
 package event;
 
+import world.AuraType;
 import world.Spell;
-import world.Timestamp;
 import world.Unit;
 
 public class SpellAuraRemovedEvent extends SpellEvent {
 
-    private final String type; //BUFF, DEBUFF
+	private final AuraType auraType; // BUFF, DEBUFF
 
-    public SpellAuraRemovedEvent(Timestamp time, Unit caster, Unit target, Spell spell, String type) {
-        super(time, caster, target, spell);
-        this.type = type;
-    }
+	public SpellAuraRemovedEvent(int time, Unit caster, Unit target,
+			Spell spell, String auraType) {
+		super(time, caster, target, spell);
+		this.auraType = AuraType.valueOf(auraType);
+	}
 
-    @Override
-    protected String getText() {
-        if(target == Unit.nil) {
-            //Aucune cible
-            return source.getName() + " lance "+ spell.getName();
-        }
-        return source.getName() + " applique le "+(type.equals("BUFF") ? "buff" : "debuff")+" "+ spell.getName() + " sur "+ target.getName();
-    }
-
-
-
-
+	@Override
+	protected String getText() {
+		if (target == Unit.nil) {
+			return source.getName() + " lance " + spell.getName();
+		}
+		return source.getName() + " applique le "
+				+ (auraType == AuraType.BUFF ? "buff" : "debuff") + " "
+				+ spell.getName() + " sur " + target.getName();
+	}
 
 }

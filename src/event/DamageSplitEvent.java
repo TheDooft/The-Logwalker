@@ -2,13 +2,12 @@ package event;
 
 import report.Damage;
 import world.Spell;
-import world.Timestamp;
 import world.Unit;
 
 public class DamageSplitEvent extends SpellEvent implements DamageEvent {
 	private final Damage damage;
 
-	public DamageSplitEvent(Timestamp time, Unit source, Unit target,
+	public DamageSplitEvent(int time, Unit source, Unit target,
 			Spell spell, Damage damage) {
 		super(time, source, target, spell);
 		this.damage = damage;
@@ -16,8 +15,20 @@ public class DamageSplitEvent extends SpellEvent implements DamageEvent {
 
 	@Override
 	protected String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		String string = source.getName() + " " + spell.getName() + " deals "
+				+ damage.getAmount() + " " + damage.getSchool() + " damage";
+		if (target == Unit.nil) {
+			string += " to " + target.getName();
+		}
+		if (damage.getAbsorbed() > 0)
+			string += " (" + damage.getAbsorbed() + " absorbed)";
+		if (damage.getBlocked() > 0)
+			string += " (" + damage.getBlocked() + " blocked)";
+		if (damage.getResisted() > 0)
+			string += " (" + damage.getResisted() + " resisted)";
+		if (damage.getOverkill() > 0)
+			string += " (" + damage.getOverkill() + " overkill)";
+		return string;
 	}
 
 	@Override

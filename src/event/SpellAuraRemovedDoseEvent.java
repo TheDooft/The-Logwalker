@@ -1,21 +1,21 @@
 package event;
 
+import world.AuraType;
 import world.Spell;
-import world.Timestamp;
 import world.Unit;
 
 public class SpellAuraRemovedDoseEvent extends SpellEvent {
-	private final String auraType; // BUFF, DEBUFF
+	private final AuraType auraType; // BUFF, DEBUFF
 	private final int amount; //
 
-	public SpellAuraRemovedDoseEvent(Timestamp time, Unit caster, Unit target,
+	public SpellAuraRemovedDoseEvent(int time, Unit caster, Unit target,
 			Spell spell, String auraType, int amount) {
 		super(time, caster, target, spell);
-		this.auraType = auraType;
+		this.auraType = AuraType.valueOf(auraType);
 		this.amount = amount;
 	}
 
-	public String getAuraType() {
+	public AuraType getAuraType() {
 		return auraType;
 	}
 
@@ -27,7 +27,8 @@ public class SpellAuraRemovedDoseEvent extends SpellEvent {
 	protected String getText() {
 		if (target == Unit.nil) {
 			// No Target
-			return source.getName() + " " + spell.getName() + "fades (" + this.amount + ")";
+			return source.getName() + " " + spell.getName() + "fades ("
+					+ this.amount + ")";
 		}
 		return source.getName() + " " + spell.getName() + " fades ("
 				+ this.amount + ") " + " on " + target.getName();

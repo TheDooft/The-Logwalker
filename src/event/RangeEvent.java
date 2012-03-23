@@ -1,12 +1,11 @@
 package event;
 
-import world.Timestamp;
 import world.Unit;
 
 public class RangeEvent extends LogEvent {
 
 
-    public RangeEvent(Timestamp time, Unit source, Unit target) {
+    public RangeEvent(int time, Unit source, Unit target) {
         super(time, source, target);
 
     }
