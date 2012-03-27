@@ -15,7 +15,7 @@ public class ReportEngine {
 	public ReportEngine() {
 		xmlBossList = FileManager.readBossXml();
 		fightList = new ArrayList<Fight>();
-		fightList.add(new Fight(new Boss("trash", 0, "", "", null), 0));
+		fightList.add(new Fight(new Boss("Trash", 0, "achievement_arena_5v5_3.jpg", "", null), 0));
 		raw = new Fight(new Boss("raw", 0, "", "", null), 0);
 	}
 	

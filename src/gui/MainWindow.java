@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
 
 import report.Fight;
 import report.ReportEngine;
@@ -17,7 +16,7 @@ public class MainWindow extends JFrame {
 	 */
 
 	private static final long serialVersionUID = 2740437090361841747L;
-	static private JTabbedPane tabs;
+	private JTabbedPane tabs;
 	static private MainWindow instance;
 
 	public MainWindow() {
@@ -43,8 +42,6 @@ public class MainWindow extends JFrame {
 
 		tabs.addTab("Parsing", new ParsingTab());
 		tabs.addTab("All", new ReportTab());
-		tabs.addTab("test1", new ReportTab());
-		tabs.addTab("test2", new ReportTab());
 		tabs.setTabComponentAt(0,
 				createTab("Parsing", "./img/small/inv_scroll_01.jpg"));
 		tabs.setTabComponentAt(1,
@@ -61,25 +58,29 @@ public class MainWindow extends JFrame {
 	}
 
 	public void refreshTab() {
-		System.out.println("before invoke : " + Thread.currentThread());
+		/*System.out.println("before invoke : " + Thread.currentThread());
 		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
+			public void run() {*/
 				System.out.println("after invoke : " + Thread.currentThread());
 				ReportEngine report = ReportEngine.getInstance();
 				ArrayList<Fight> fightList = report.getFightList();
 				int max = tabs.getTabCount();
 				for (int i = 2; i < max; i++)
+				{
 					tabs.removeTabAt(2);
+					tabs.revalidate();
+					tabs.repaint();
+				}
 				for (Fight fight : fightList) {
-					tabs.addTab(fight.getBoss().getName(), new ReportTab());
+					tabs.addTab(/*fight.getBoss().getName()*/"toto", new ReportTab());
 					tabs.setTabComponentAt(
 							tabs.getTabCount() - 1,
 							createTab(fight.getBoss().getName(), "./img/small/"
 									+ fight.getBoss().getIcon()));
 				}
-				revalidate();
-				repaint();
-			}
-		});
+				this.revalidate();
+				this.repaint();
+			/*}
+		});*/
 	}
 }

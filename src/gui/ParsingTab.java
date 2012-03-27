@@ -14,7 +14,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import parser.LogParser;
 import report.Splitter;
@@ -40,7 +39,7 @@ public class ParsingTab extends JPanel implements ActionListener {
 		JPanel sourcePanel = new JPanel();
 
 		this.textFieldFileName = new JTextField(
-				"./sample/WoWCombatLog-light.txt", 40);
+				"./sample/WoWCombatLog-MoP.txt", 40);
 		this.textFieldFileName.setMaximumSize(textFieldFileName
 				.getPreferredSize());
 		buttonBrowse.addActionListener(this);
@@ -58,6 +57,7 @@ public class ParsingTab extends JPanel implements ActionListener {
 		buttonCancel.addActionListener(this);
 		buttonCancel.setVisible(false);
 
+		
 		JPanel parsePanel = new JPanel();
 		parsePanel.setLayout(new BoxLayout(parsePanel, BoxLayout.LINE_AXIS));
 		parsePanel.add(buttonParse);

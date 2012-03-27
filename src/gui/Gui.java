@@ -6,18 +6,18 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Gui {
-	private MainWindow mainWindow;
+	private MainWindow mainWindows;
 
 	public Gui() {
 		setLookAndFeel();
 		// JFrame.setDefaultLookAndFeelDecorated(false);
 		ToolTipManager.sharedInstance().setInitialDelay(0);
-		mainWindow = new MainWindow();
+		mainWindows = MainWindow.getInstance();
 	}
 
 	public void start() {
-		mainWindow.setLocationRelativeTo(null);
-		mainWindow.setVisible(true);
+		mainWindows.setLocationRelativeTo(null);
+		mainWindows.setVisible(true);
 	}
 
 	private void setLookAndFeel() {
