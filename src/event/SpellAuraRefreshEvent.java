@@ -15,7 +15,7 @@ public class SpellAuraRefreshEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		if (target == Unit.nil) {
 			// Aucune cible
 			return source.getName() + " lance " + spell.getName();

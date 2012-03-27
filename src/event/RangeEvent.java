@@ -1,18 +1,18 @@
 package event;
 
+import world.Spell;
 import world.Unit;
 
-public class RangeEvent extends LogEvent {
+public class RangeEvent extends SpellEvent {
 
 
-    public RangeEvent(int time, Unit source, Unit target) {
-        super(time, source, target);
-
+    public RangeEvent(int time, Unit source, Unit target, Spell spell) {
+        super(time, source, target, spell);
     }
 
     @Override
-    protected String getText() {
-        return source.getName() + " tire sur "+ target.getName();
+	public String getText() {
+        return source.getName() + " shoots "+ target.getName();
     }
 
 }

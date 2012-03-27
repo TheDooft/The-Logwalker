@@ -9,7 +9,7 @@ public class SwingEvent extends LogEvent {
     }
 
     @Override
-    protected String getText() {
+	public String getText() {
         return source.getName() + " tape "+ target.getName();
     }
 

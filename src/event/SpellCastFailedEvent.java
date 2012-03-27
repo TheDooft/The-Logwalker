@@ -15,7 +15,7 @@ public class SpellCastFailedEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		String ret = new String();
 		ret += source.getName() + " " + spell.getName() + " failed ";
 		if (target != null)

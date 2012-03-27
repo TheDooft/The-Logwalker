@@ -12,7 +12,7 @@ public class RangeEventParser extends EventParser{
     @Override
     public LogEvent parse(int time, Unit source, Unit target, String[] params) {
 
-        return new RangeEvent(time, source, target);
+        return new RangeEvent(time, source, target, SpellEventParser.getSpell(params));
     }
 
     @Override

@@ -19,7 +19,7 @@ public class SpellPeriodicEnergizeEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		// TODO Auto-generated method stub
 		return null;
 	}

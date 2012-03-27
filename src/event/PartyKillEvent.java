@@ -10,7 +10,7 @@ public class PartyKillEvent extends LogEvent {
     }
 
     @Override
-    protected String getText() {
+	public String getText() {
         return source.getName() + " party kill "+ target.getName();
     }
 

@@ -17,9 +17,12 @@ public class SwingMissed extends SwingEvent {
 	}
     
     @Override
-    protected String getText() {
-        // TODO Auto-generated method stub
-        return null;
+	public String getText() {
+    	String ret = source.getName() + " swing miss";
+		if (target != Unit.nil)
+			ret += " on " + target.getName();
+		ret += "(" + miss.getType().name() + ").";
+		return ret;
     }
 
 }

@@ -10,11 +10,13 @@ public class ReportEngine {
 	private static ReportEngine instance;
 	static private ArrayList<Boss> xmlBossList;
 	private ArrayList<Fight> fightList;
+	private Fight raw;
 	
 	public ReportEngine() {
 		xmlBossList = FileManager.readBossXml();
 		fightList = new ArrayList<Fight>();
 		fightList.add(new Fight(new Boss("trash", 0, "", "", null), 0));
+		raw = new Fight(new Boss("raw", 0, "", "", null), 0);
 	}
 	
 	static public ReportEngine getInstance(){
@@ -23,16 +25,28 @@ public class ReportEngine {
 		return instance;
 	}
 	
+	public ArrayList<Fight> getFightList() {
+		return fightList;
+	}
+	
 	static public ArrayList<Boss> getXmlBossList() {
 		return xmlBossList;
 	}
 
 	public void addEvent(LogEvent event) {
-		fightList.get(0).addEvent(event);
+		raw.addEvent(event);
 	}
 
-	public Fight getTrash() {
-		return fightList.get(0);
+	public void addTrashEvent (LogEvent event){
+		fightList.get(0).addEvent(event);
+	}
+	
+	public Fight getRaw() {
+		return raw;
+	}
+	
+	public void addFight (Fight fight){
+		fightList.add(fight);
 	}
 
 	public void clear() {

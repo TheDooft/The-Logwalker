@@ -14,7 +14,7 @@ public class DamageSplitEvent extends SpellEvent implements DamageEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		String string = source.getName() + " " + spell.getName() + " deals "
 				+ damage.getAmount() + " " + damage.getSchool() + " damage";
 		if (target == Unit.nil) {

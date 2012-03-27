@@ -15,7 +15,7 @@ public class SpellHealEvent extends SpellEvent implements HealEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		// TODO Auto-generated method stub
 		return null;
 	}

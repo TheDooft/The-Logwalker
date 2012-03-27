@@ -104,4 +104,8 @@ public class Spell {
 			return "unknown";
 		}
 	}
+
+	public int getId() {
+		return id;
+	}
 }

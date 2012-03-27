@@ -2,7 +2,7 @@
 		<bossList>
 			<boss>
 				<name>Morchok</name>
-				<idleEnd>5</idleEnd>
+				<idleEnd>30</idleEnd>
 				<icon>achievment_boss_morchok.jpg</icon>
 				<image>ui-ej-boss-morchok.png</image>
 				<actorUIDs>
@@ -11,7 +11,7 @@
 			</boss>
 			<boss>
 				<name>Warlord Zon'ozz</name>
-				<idleEnd>5</idleEnd>
+				<idleEnd>30</idleEnd>
 				<icon>achievment_boss_zonozz.jpg</icon>
 				<image>ui-ej-boss-warlord-zonozz.png</image>
 				<actorUIDs>
@@ -20,7 +20,7 @@
 			</boss>
 			<boss>
 				<name>Yor'sahj the Unsleeping</name>
-				<idleEnd>5</idleEnd>
+				<idleEnd>30</idleEnd>
 				<icon>achievment_boss_yorsahj.jpg</icon>
 				<image>ui-ej-boss-yorsahj-the-unsleeping.png</image>
 				<actorUIDs>
@@ -29,7 +29,7 @@
 			</boss>
 			<boss>
 				<name>Hagara the Stormbinder</name>
-				<idleEnd>5</idleEnd>
+				<idleEnd>30</idleEnd>
 				<icon>achievment_boss_hagara.jpg</icon>
 				<image>ui-ej-boss-hagara.png</image>
 				<actorUIDs>
@@ -38,7 +38,7 @@
 			</boss>
 			<boss>
 				<name>Ultraxion</name>
-				<idleEnd>5</idleEnd>
+				<idleEnd>30</idleEnd>
 				<icon>achievment_boss_ultraxion.jpg</icon>
 				<image>ui-ej-boss-ultraxion.png</image>
 				<actorUIDs>
@@ -47,7 +47,7 @@
 			</boss>
 			<boss>
 				<name>Warmaster Blackhorn</name>
-				<idleEnd>5</idleEnd>
+				<idleEnd>30</idleEnd>
 				<icon>achievment_boss_blackhorn.jpg</icon>
 				<image>ui-ej-boss-warmasterblackhorn.png</image>
 				<actorUIDs>
@@ -61,7 +61,7 @@
 			</boss>
 			<boss>
 				<name>Spine of Deathwing</name>
-				<idleEnd>5</idleEnd>
+				<idleEnd>30</idleEnd>
 				<icon>achievment_boss_spineofdeathwing.jpg</icon>
 				<image>ui-ej-boss-deathwing.png</image>
 				<actorUIDs>
@@ -73,7 +73,7 @@
 			</boss>
 			<boss>
 				<name>Madness of Deathwing</name>
-				<idleEnd>30</idleEnd>
+				<idleEnd>60</idleEnd>
 				<icon>achievment_boss_madnessofdeathwing.jpg</icon>
 				<image>ui-ej-boss-corrupted-deathwing.png</image>
 				<actorUIDs>

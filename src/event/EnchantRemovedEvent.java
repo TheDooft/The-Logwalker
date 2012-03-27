@@ -17,7 +17,7 @@ public class EnchantRemovedEvent extends LogEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		if (target == Unit.nil) {
 			return source.getName() + " removes " + spell.getName() + " on "
 					+ item.getName();

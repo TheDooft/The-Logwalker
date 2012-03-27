@@ -15,9 +15,21 @@ public class SpellDamageEvent extends SpellEvent implements DamageEvent {
 	}
 
 	@Override
-	protected String getText() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getText() {
+		String ret = source.getName() + " " + spell.getName() + " hits";
+		if (target == Unit.nil) {
+			ret += " " + target.getName();
+		}
+		ret += " for " + damage.getAmount() + " " + Spell.getSchoolName(damage.getSchool()) + " damage";
+		if (damage.getAbsorbed() > 0)
+			ret += " (" + damage.getAbsorbed() + " absorbed)";
+		if (damage.getBlocked() > 0)
+			ret += " (" + damage.getBlocked() + " blocked)";
+		if (damage.getResisted() > 0)
+			ret += " (" + damage.getResisted() + " resisted)";
+		if (damage.getOverkill() > 0)
+			ret += " (" + damage.getOverkill() + " overkill)";
+		return ret;
 	}
 
 	@Override

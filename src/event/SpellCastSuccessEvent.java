@@ -11,8 +11,12 @@ public class SpellCastSuccessEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
-		return null;
+	public String getText() {
+		String ret = source.getName() + " succesfuly cast " + spell.getName();
+		if (target != Unit.nil)
+			ret += " on " + target.getName();
+		ret += ".";
+		return ret;
 	}
 
 }

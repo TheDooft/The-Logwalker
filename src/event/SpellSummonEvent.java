@@ -10,7 +10,7 @@ public class SpellSummonEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		return source.getName() + " summons " + spell.getName() + ".";
 	}
 }

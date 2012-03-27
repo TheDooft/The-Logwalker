@@ -20,7 +20,7 @@ public abstract class LogEvent {
         return time+" "+getText();
     }
 
-    protected abstract String getText();
+    public abstract String getText();
 
     public Unit getSource() {
         return source;

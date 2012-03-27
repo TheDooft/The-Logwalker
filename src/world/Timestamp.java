@@ -29,4 +29,10 @@ public class Timestamp {
      public String toString(int time) {
         return outputDateFormat.format(new Date(baseTime + time));
     }
+
+
+	public static String displayTime(int time) {
+		Date date = new Date(time + baseTime);
+		return outputDateFormat.format(date);
+	}
 }

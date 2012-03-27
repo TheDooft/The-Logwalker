@@ -120,6 +120,8 @@ public class ParsingTab extends JPanel implements ActionListener{
 		setCursor(null);
 		progressBar.setVisible(false);
 		buttonCancel.setVisible(false);
+		MainWindow mainWindow = MainWindow.getInstance();
+		mainWindow.refreshTab();
 	}
 	
 }

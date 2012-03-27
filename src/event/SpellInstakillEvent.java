@@ -10,7 +10,7 @@ public class SpellInstakillEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		if (target == Unit.nil) {
 			return source.getName() + " " + spell.getName() + " instakills.";
 		}

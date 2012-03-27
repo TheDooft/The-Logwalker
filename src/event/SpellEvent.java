@@ -12,8 +12,12 @@ public class SpellEvent extends LogEvent {
 		this.spell = spell;
 	}
 
+	public Spell getSpell() {
+		return spell;
+	}
+	
 	@Override
-	protected String getText() {
+	public String getText() {
 		if (target == Unit.nil) {
 			// Aucune cible
 			return source.getName() + " lance " + spell.getName();

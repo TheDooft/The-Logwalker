@@ -17,7 +17,7 @@ public class EnvironmentalDamageEvent extends LogEvent implements DamageEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		String string = source.getName() + " " + " deals " + damage.getAmount()
 				+ " " + damage.getSchool() + " damage";
 		if (target == Unit.nil) {

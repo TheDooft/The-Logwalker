@@ -11,8 +11,12 @@ public class SpellCastStartEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
-		return null;
+	public String getText() {
+		String ret = source.getName() + " begins to cast " + spell.getName();
+		if (target != Unit.nil)
+			ret += " on " + target.getName();
+		ret += ".";
+		return ret;
 	}
 
 }

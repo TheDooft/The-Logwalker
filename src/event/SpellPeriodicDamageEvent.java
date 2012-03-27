@@ -15,7 +15,7 @@ public class SpellPeriodicDamageEvent extends SpellEvent implements DamageEvent 
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		// TODO Auto-generated method stub
 		return null;
 	}

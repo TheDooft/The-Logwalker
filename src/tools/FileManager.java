@@ -42,7 +42,7 @@ public class FileManager {
 							.getElementsByTagName("uid");
 					ArrayList<Integer> uidList = new ArrayList<Integer>();
 					for (int j = 0; j < uidNodeList.getLength(); j++) {
-						NodeList nlList = uidNodeList.item(0).getChildNodes();
+						NodeList nlList = uidNodeList.item(j).getChildNodes();
 						Node uidNode = (Node) nlList.item(0);
 						uidList.add(Integer.parseInt(uidNode.getNodeValue()));
 					}

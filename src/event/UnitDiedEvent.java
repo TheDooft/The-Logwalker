@@ -9,7 +9,7 @@ public class UnitDiedEvent extends LogEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		return target.getName() + " meurt";
 	}
 

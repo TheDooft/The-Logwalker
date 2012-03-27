@@ -24,7 +24,7 @@ public class SpellAuraRemovedDoseEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		if (target == Unit.nil) {
 			// No Target
 			return source.getName() + " " + spell.getName() + "fades ("

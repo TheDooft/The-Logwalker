@@ -17,7 +17,7 @@ public class EnchantAppliedEvent extends LogEvent {
 	}
 
 	@Override
-	protected String getText() {
+	public String getText() {
 		if (target == Unit.nil) {
 			return source.getName() + " applies " + spell.getName() + " on "
 					+ item.getName();

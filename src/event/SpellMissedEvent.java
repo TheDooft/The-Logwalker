@@ -19,9 +19,12 @@ public class SpellMissedEvent extends SpellEvent {
 	}
 
 	@Override
-	protected String getText() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getText() {
+		String ret = source.getName() + " " + spell.getName() + " miss";
+		if (target != null)
+			ret += " on " + target.getName();
+		ret += "(" + miss.getType().name() + ").";
+		return ret;
 	}
 
 }
