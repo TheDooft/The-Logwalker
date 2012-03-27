@@ -14,11 +14,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import parser.LogParser;
 import report.Splitter;
 
-public class ParsingTab extends JPanel implements ActionListener{
+public class ParsingTab extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -49,25 +50,25 @@ public class ParsingTab extends JPanel implements ActionListener{
 		sourcePanel.add(textFieldFileName);
 		sourcePanel.add(buttonBrowse);
 		sourcePanel.setAlignmentX(LEFT_ALIGNMENT);
-		
+
 		buttonParse = new JButton("Parse");
 		buttonParse.addActionListener(this);
 
 		buttonCancel = new JButton("Cancel");
 		buttonCancel.addActionListener(this);
 		buttonCancel.setVisible(false);
-		
+
 		JPanel parsePanel = new JPanel();
 		parsePanel.setLayout(new BoxLayout(parsePanel, BoxLayout.LINE_AXIS));
 		parsePanel.add(buttonParse);
 		parsePanel.add(buttonCancel);
 		parsePanel.setAlignmentX(LEFT_ALIGNMENT);
-		
+
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
 		progressBar.setVisible(false);
 		progressBar.setAlignmentX(LEFT_ALIGNMENT);
-		
+
 		this.add(sourcePanel, BorderLayout.LINE_START);
 		this.add(parsePanel);
 		this.add(Box.createVerticalGlue());
@@ -102,19 +103,19 @@ public class ParsingTab extends JPanel implements ActionListener{
 		}
 	}
 
-	public void update(String phase,int progress) {
-		DecimalFormat df = new DecimalFormat ( ) ;
+	public void update(String phase, int progress) {
+		DecimalFormat df = new DecimalFormat();
 		df.setMaximumFractionDigits(2);
-		df.setMinimumFractionDigits(2); 
+		df.setMinimumFractionDigits(2);
 		progressBar.setValue(progress);
 		progressBar.setString(phase + df.format(progress / 100.0) + " %");
 	}
-	
-	public void parseDone(){
+
+	public void parseDone() {
 		Splitter splitter = new Splitter(this);
 		splitter.execute();
 	}
-	
+
 	public void done() {
 		buttonParse.setEnabled(true);
 		setCursor(null);
@@ -123,5 +124,4 @@ public class ParsingTab extends JPanel implements ActionListener{
 		MainWindow mainWindow = MainWindow.getInstance();
 		mainWindow.refreshTab();
 	}
-	
 }
