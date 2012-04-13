@@ -49,10 +49,9 @@ public class FileManager {
 					bossList.add(new Boss(
 							getTagValue("name", bossElement),
 							Integer.parseInt(getTagValue("idleEnd", bossElement)),
-							getTagValue("name", bossElement), getTagValue(
-									"name", bossElement), uidList));
+							getTagValue("icon", bossElement), getTagValue(
+									"image", bossElement), uidList));
 				}
-
 			}
 
 		} catch (SAXParseException err) {

@@ -19,7 +19,7 @@ public class ReportTab extends JPanel {
 		tabs.addTab("Heal", new JPanel());
 		tabs.addTab("Damage", new JPanel());
 		add(tabs);
-
+		
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 	}
 }
