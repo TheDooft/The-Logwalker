@@ -39,7 +39,7 @@ public class ParsingTab extends JPanel implements ActionListener {
 		JPanel sourcePanel = new JPanel();
 
 		this.textFieldFileName = new JTextField(
-				"./sample/WoWCombatLog-MoP.txt", 40);
+				"./sample/WoWCombatLog-Light.txt", 40);
 		this.textFieldFileName.setMaximumSize(textFieldFileName
 				.getPreferredSize());
 		buttonBrowse.addActionListener(this);
@@ -105,10 +105,11 @@ public class ParsingTab extends JPanel implements ActionListener {
 
 	public void update(String phase, int progress) {
 		DecimalFormat df = new DecimalFormat();
-		df.setMaximumFractionDigits(2);
-		df.setMinimumFractionDigits(2);
+		df.setMaximumFractionDigits(0);
+		df.setMinimumFractionDigits(0);
 		progressBar.setValue(progress);
 		progressBar.setString(phase + df.format(progress / 100.0) + " %");
+		progressBar.repaint();
 	}
 
 	public void parseDone() {

@@ -46,7 +46,7 @@ public class MainWindow extends JFrame implements ChangeListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		tabs.addTab("Parsing", new ParsingTab());
-		tabs.addTab("All", new ReportTab());
+		tabs.addTab("All", new ReportTab(null));
 		tabs.setTabComponentAt(0,
 				createTab("Parsing", "./img/small/inv_scroll_01.jpg"));
 		tabs.setTabComponentAt(1,
@@ -74,7 +74,7 @@ public class MainWindow extends JFrame implements ChangeListener {
 			tabs.repaint();
 		}
 		for (Fight fight : fightList) {
-			tabs.addTab(fight.getBoss().getName(), null);
+			tabs.addTab(fight.getBoss().getName(), new ReportTab(fight));
 			tabs.setTabComponentAt(
 					tabs.getTabCount() - 1,
 					createTab(fight.getBoss().getName(), "./img/small/"
@@ -90,6 +90,9 @@ public class MainWindow extends JFrame implements ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		System.out.println("Tab #" + tabs.getSelectedIndex() + " selected");
+		if (tabs.getSelectedIndex() > 1){
+			ReportTab tab = (ReportTab) tabs.getSelectedComponent();
+			tab.updateContent();
+		}
 	}
 }
