@@ -28,11 +28,12 @@ public class Unit {
 
 	private final long uid;
 	private final String name;
-	private final long flags;
-	private final long flags2;
+	private long flags;
+	private long flags2;
 	private final UnitType unitType;
 	private final int spawnCounter;
 	private final int id;
+	private Unit owner;
 
 	static private Map<Long, Unit> instanceList;
 
@@ -44,6 +45,7 @@ public class Unit {
 		int type = Integer.parseInt(guid.substring(2, 5), 16);
 		spawnCounter = Integer.parseInt(guid.substring(12, 18), 16);
 		type &= 0x007;
+		this.owner = nil;
 		switch (type) {
 		case 0:
 			unitType = UnitType.player;
@@ -76,13 +78,33 @@ public class Unit {
 		if (instanceList == null)
 			instanceList = new HashMap<Long, Unit>();
 		long uid = parseUid(guid);
+		if (uid == 0)
+			return nil;
 		if (instanceList.containsKey(uid) == true)
-			return instanceList.get(uid);
+		{
+			Unit unit = instanceList.get(uid);
+			if (unit.isReactionNeutral())
+				unit.updateFlags(flags, flags2);
+			return unit;
+		}
 		Unit unit = new Unit(guid, name, flags, flags2);
 		instanceList.put(uid, unit);
 		return unit;
 	}
 
+	private void updateFlags(long flags, long flags2) {
+		this.flags = flags;
+		this.flags2 = flags2;
+	}
+
+	public void setOwner(Unit owner) {
+		this.owner = owner;
+	}
+	
+	public Unit getOwner() {
+		return owner;
+	}
+	
 	private static long parseUid(String guid) {
 		return Long.parseLong(guid.substring(5), 16);
 	}

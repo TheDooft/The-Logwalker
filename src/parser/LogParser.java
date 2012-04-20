@@ -72,7 +72,7 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		Scanner scanner = new Scanner(file, "UTF-8");
 
 		setProgress(0);
-		//int i = 0;
+		// int i = 0;
 		while (scanner.hasNextLine() && !isCancelled()) {
 			String line = scanner.nextLine();
 			total += line.length();
@@ -82,25 +82,10 @@ public class LogParser extends SwingWorker<Void, Integer> {
 				publish(percent);
 			}
 			try {
-				//long m1 = Runtime.getRuntime().freeMemory();
-				//long t1 = System.nanoTime();
 				LogEvent event = parserEvent(line);
-				//long t2 = System.nanoTime();
-
-				// System.out.println("line " + ++i + " parsed in " + ((t2 - t1)
-				// / 1000.0) + "ms");
-
 				if (event != null) {
-				//	t1 = System.nanoTime();
-					// event.
 					report.addEvent(event);
-					// report.clear();
-				//	t2 = System.nanoTime();
-					// System.out.println("line " + i + " added  in " + ((t2 -
-					// t1) / 1000.0) + "ms");
 				}
-				//long m2 = Runtime.getRuntime().freeMemory();
-				// System.out.println("Diff mem : " + (m2 - m1));
 			} catch (ParseException e) {
 				System.err.println(e.getMessage());
 			}
@@ -178,10 +163,10 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		return Long.parseLong(string.substring(2), 16);
 	}
 
-	public static BigInteger parseGuid(String string){
+	public static BigInteger parseGuid(String string) {
 		return new BigInteger(string.substring(2), 16);
 	}
-	
+
 	public static int parseInt(String string) {
 		return Integer.parseInt(string.substring(2), 16);
 	}
