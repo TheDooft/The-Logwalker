@@ -4,10 +4,13 @@ import world.Spell;
 import world.Unit;
 
 public class SpellSummonEvent extends SpellEvent {
-	public SpellSummonEvent(int time, Unit caster, Unit target,
-			Spell spell) {
+
+	
+
+	public SpellSummonEvent(int time, Unit caster, Unit target, Spell spell) {
 		super(time, caster, target, spell);
 		target.setOwner(caster);
+		caster.addSummon(target);			
 	}
 
 	@Override

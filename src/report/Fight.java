@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import world.Unit;
 import boss.Boss;
 import event.LogEvent;
-import event.SpellCastSuccessEvent;
 
 public class Fight {
 	private Boss boss;
@@ -13,17 +12,21 @@ public class Fight {
 	private int endTime;
 	private ArrayList<LogEvent> eventList;
 	private ArrayList<Unit> playerList;
-	private ArrayList<Unit> petList;
+	private ArrayList<Unit> ownedPetList;
 	private ArrayList<Unit> npcList;
-	private ArrayList<Unit> guardianList;
+	private ArrayList<Unit> freePetList;
 	private Boolean computed;
-	private Unit lastBattleChickenOwner;
 
 	public Fight(Boss boss, int beginTime) {
 		this.boss = boss;
 		this.beginTime = beginTime;
 		this.eventList = new ArrayList<LogEvent>();
 		this.computed = false;
+	}
+
+	public boolean isActive(Unit unit) {
+		return playerList.contains(unit) || ownedPetList.contains(unit)
+				|| npcList.contains(unit) || freePetList.contains(unit);
 	}
 
 	public void setEndTime(int endTime) {
@@ -66,49 +69,50 @@ public class Fight {
 	public void compute() {
 		playerList = new ArrayList<Unit>();
 		npcList = new ArrayList<Unit>();
-		petList = new ArrayList<Unit>();
-		guardianList = new ArrayList<Unit>();
+		ownedPetList = new ArrayList<Unit>();
+		freePetList = new ArrayList<Unit>();
 
-		this.lastBattleChickenOwner = Unit.nil;
 		for (LogEvent event : eventList) {
 			addToList(event.getSource());
 			addToList(event.getTarget());
-			// Special case : Battle Chicken
-			if (event.getClass().equals(SpellCastSuccessEvent.class)) {
-				SpellCastSuccessEvent spellEvent = (SpellCastSuccessEvent) event;
-				if (spellEvent.getSpell().getId() == 23133){
-					this.lastBattleChickenOwner = event.getSource();
-					//System.out.println(event.getText());
-					}
-			}
 		}
+
+		for (Unit unit : playerList)
+			unit.update();
+		for (Unit unit : npcList)
+			unit.update();
+		for (Unit unit : ownedPetList)
+			unit.update();
+		for (Unit unit : freePetList)
+			unit.update();
+
 		computed = true;
 	}
 
 	private void addToList(Unit unit) {
 		if (unit == Unit.nil)
 			return;
-		if (this.lastBattleChickenOwner != Unit.nil && unit.getId() == 8836){
-			System.out.println("Owner Found !");
-			unit.setOwner(this.lastBattleChickenOwner);
-			this.lastBattleChickenOwner = Unit.nil;
-		}
 		if (unit.isTypePlayer()) {
 			if (!playerList.contains(unit))
-				playerList.add(unit);
+				add(playerList, unit);
 		}
-		if (unit.isTypePet()) {
-			if (!petList.contains(unit))
-				petList.add(unit);
-		}
-		if (unit.isTypeGuardian()) {
-			if (!guardianList.contains(unit))
-				guardianList.add(unit);
+		if (unit.isTypePet() || unit.isTypeGuardian()) {
+			if (unit.getOwner() != Unit.nil) {
+				if (!ownedPetList.contains(unit))
+					add(ownedPetList, unit);
+			} else {
+				if (!freePetList.contains(unit))
+					add(freePetList, unit);
+			}
 		}
 		if (unit.isTypeNpc() && !unit.getOwner().isTypePlayer()) {
 			if (!npcList.contains(unit))
-				npcList.add(unit);
+				add(npcList, unit);
 		}
+	}
+
+	private void add(ArrayList<Unit> list, Unit unit) {
+		list.add(unit);
 	}
 
 	public ArrayList<Unit> getPlayerList() {
@@ -119,11 +123,11 @@ public class Fight {
 		return npcList;
 	}
 
-	public ArrayList<Unit> getPetList() {
-		return petList;
+	public ArrayList<Unit> getOwnedPetList() {
+		return ownedPetList;
 	}
 
-	public ArrayList<Unit> getGuardianList() {
-		return guardianList;
+	public ArrayList<Unit> getFreePetList() {
+		return freePetList;
 	}
 }

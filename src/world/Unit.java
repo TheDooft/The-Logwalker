@@ -1,7 +1,13 @@
 package world;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import report.Fight;
+import report.ReportEngine;
+import tools.SpecialCaseManager;
 
 public class Unit {
 	private static final long AFFILIATION_MINE = 0x00000001L;
@@ -28,20 +34,24 @@ public class Unit {
 
 	private final long uid;
 	private final String name;
-	private long flags;
-	private long flags2;
 	private final UnitType unitType;
 	private final int spawnCounter;
 	private final int id;
+	private long flags;
+	private long flags2;
 	private Unit owner;
-
-	static private Map<Long, Unit> instanceList;
+	private ArrayList<Unit> summonList;
+	private ArrayList<Unit> fightSummonList;
+	private static Map<Long, Unit> instanceList;
+	private String tooltip;
 
 	public Unit(String guid, String name, long flags, long flags2) {
 		this.name = new String(name);
 		this.flags = flags;
 		this.flags2 = flags2;
 		this.uid = parseUid(guid);
+		this.summonList = new ArrayList<Unit>();
+		this.fightSummonList = this.summonList;
 		int type = Integer.parseInt(guid.substring(2, 5), 16);
 		spawnCounter = Integer.parseInt(guid.substring(12, 18), 16);
 		type &= 0x007;
@@ -75,21 +85,82 @@ public class Unit {
 
 	static public Unit getInstance(String guid, String name, long flags,
 			long flags2) {
+		Unit unit;
 		if (instanceList == null)
 			instanceList = new HashMap<Long, Unit>();
 		long uid = parseUid(guid);
 		if (uid == 0)
 			return nil;
-		if (instanceList.containsKey(uid) == true)
-		{
-			Unit unit = instanceList.get(uid);
+		if (instanceList.containsKey(uid) == true) {
+			unit = instanceList.get(uid);
 			if (unit.isReactionNeutral())
 				unit.updateFlags(flags, flags2);
-			return unit;
+		} else {
+			unit = new Unit(guid, name, flags, flags2);
+			instanceList.put(uid, unit);
 		}
-		Unit unit = new Unit(guid, name, flags, flags2);
-		instanceList.put(uid, unit);
+		if (unit.getUnitType() != UnitType.player
+				&& unit.getSpawnCounter() == 0) {
+			List<Unit> list = new ArrayList<Unit>(instanceList.values());
+			for (int i = list.size() - 1; i >= 0; i--)
+				if (unit.getName().equals(list.get(i).getName())) {
+					unit = list.get(i);
+					break;
+				}
+		}
+		SpecialCaseManager specialCaseManager = SpecialCaseManager
+				.getInstance();
+		Unit summoner = specialCaseManager.getSpecialSummon(unit.getId());
+		if (summoner != Unit.nil) {
+			unit.setOwner(summoner);
+			summoner.addSummon(unit);
+		}
 		return unit;
+	}
+
+	public void update() {
+		updateFightSummonList();
+		updateTooltip();
+	}
+
+	public void updateFightSummonList() {
+		ReportEngine reportEngine = ReportEngine.getInstance();
+		Fight currentFight = reportEngine.getCurrentFight();
+		fightSummonList = new ArrayList<Unit>();
+		for (Unit unit : summonList) {
+			if (currentFight.isActive(unit))
+				fightSummonList.add(unit);
+		}
+	}
+
+	public void updateTooltip() {
+		tooltip = new String("<html>");
+
+		tooltip += "<b>" + this.name + "</b>";
+		if (spawnCounter > 0)
+			tooltip += " #" + Integer.toHexString(this.spawnCounter);
+		tooltip += "<br/>";
+		tooltip += "<i>" + Long.toHexString(this.uid) + "</i><br/>";
+		tooltip += this.unitType.name() + "<br/>";
+		if (id > 0)
+			tooltip += "ID : " + this.id + "<br/>";
+		tooltip += "Flags : " + Long.toHexString(flags) + " / "
+				+ Long.toHexString(flags2) + "<br/>";
+		if (owner != Unit.nil)
+			tooltip += "owned by " + owner.getName() + "<br/>";
+		if (!this.fightSummonList.isEmpty()) {
+			tooltip += "owns :<br/>";
+			for (Unit unit : this.fightSummonList) {
+				tooltip += "&nbsp- " + unit.getName() + " #"
+						+ Integer.toHexString(unit.getSpawnCounter()) + "<br/>";
+			}
+		}
+
+		tooltip += "</html>";
+	}
+
+	public String getTooltip() {
+		return tooltip;
 	}
 
 	private void updateFlags(long flags, long flags2) {
@@ -100,11 +171,11 @@ public class Unit {
 	public void setOwner(Unit owner) {
 		this.owner = owner;
 	}
-	
+
 	public Unit getOwner() {
 		return owner;
 	}
-	
+
 	private static long parseUid(String guid) {
 		return Long.parseLong(guid.substring(5), 16);
 	}
@@ -154,7 +225,7 @@ public class Unit {
 	public boolean isTypePlayer() {
 		return ((flags & TYPE_MASK) == TYPE_PLAYER);
 	}
-	
+
 	public boolean isControlPlayer() {
 		return ((flags & CONTROL_MASK) == CONTROL_PLAYER);
 	}
@@ -174,7 +245,7 @@ public class Unit {
 	public boolean isReactionFriendly() {
 		return ((flags & REACTION_MASK) == REACTION_FRIENDLY);
 	}
-	
+
 	public boolean isControlAffOutsider() {
 		return ((flags & AFFILIATION_MASK) == AFFILIATION_OUTSIDER);
 	}
@@ -190,5 +261,13 @@ public class Unit {
 	public boolean isControlAffMine() {
 		return ((flags & AFFILIATION_MASK) == AFFILIATION_MINE);
 	}
-	
+
+	public void addSummon(Unit target) {
+		this.summonList.add(target);
+	}
+
+	public ArrayList<Unit> getSummonList() {
+		return summonList;
+	}
+
 }
