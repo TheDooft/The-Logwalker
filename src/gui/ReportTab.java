@@ -3,11 +3,13 @@ package gui;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import report.Fight;
 import report.ReportEngine;
 
-public class ReportTab extends JPanel {
+public class ReportTab extends JPanel implements ChangeListener {
 	/**
 	 * 
 	 */
@@ -29,6 +31,15 @@ public class ReportTab extends JPanel {
 			fight.compute(); // TODO -> worker
 			tabs.addTab("Units", new ReportUnitsTab(fight));
 			tabs.addTab("Log", new LogTab(fight));
+			tabs.addChangeListener(this);
+		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		if (tabs.getSelectedComponent().getClass().equals(LogTab.class)){
+			LogTab tab = (LogTab) tabs.getSelectedComponent();
+			tab.updateContent();
 		}
 	}
 }
