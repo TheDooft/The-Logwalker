@@ -16,7 +16,7 @@ public class ReportTab extends JPanel {
 	Fight fight;
 
 	public ReportTab(Fight fight) {
-		tabs = new JTabbedPane(JTabbedPane.BOTTOM);
+		tabs = new JTabbedPane(JTabbedPane.TOP);
 		add(tabs);
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.fight = fight;
@@ -28,6 +28,7 @@ public class ReportTab extends JPanel {
 			reportEngine.setCurrentFight(fight);
 			fight.compute(); // TODO -> worker
 			tabs.addTab("Units", new ReportUnitsTab(fight));
+			tabs.addTab("Log", new LogTab(fight));
 		}
 	}
 }

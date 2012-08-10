@@ -18,20 +18,28 @@ public class DamageShieldEvent extends LogEvent implements DamageEvent {
 
 	@Override
 	public String getText() {
-		String string = source.getName() + " " + spell.getName() + " deals "
-				+ damage.getAmount() + " " + damage.getSchool() + " damage";
+		String ret = source.getName() + " " + spell.getName();
+		if (damage.isCritical())
+			ret += " criticaly";
+		ret += " hits";
 		if (target == Unit.nil) {
-			string += " to " + target.getName();
+			ret += " " + target.getName();
 		}
+		ret += " for " + damage.getAmount() + " "
+				+ Spell.getSchoolName(damage.getSchool()) + " damage";
 		if (damage.getAbsorbed() > 0)
-			string += " (" + damage.getAbsorbed() + " absorbed)";
+			ret += " (" + damage.getAbsorbed() + " absorbed)";
 		if (damage.getBlocked() > 0)
-			string += " (" + damage.getBlocked() + " blocked)";
+			ret += " (" + damage.getBlocked() + " blocked)";
 		if (damage.getResisted() > 0)
-			string += " (" + damage.getResisted() + " resisted)";
+			ret += " (" + damage.getResisted() + " resisted)";
 		if (damage.getOverkill() > 0)
-			string += " (" + damage.getOverkill() + " overkill)";
-		return string;
+			ret += " (" + damage.getOverkill() + " overkill)";
+		if (damage.isGlancing())
+			ret += " (Glancing)";
+		if (damage.isCrushing())
+			ret += " (Crushing)";
+		return ret;
 	}
 
 	@Override

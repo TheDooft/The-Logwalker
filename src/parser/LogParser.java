@@ -180,12 +180,12 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		int amount = Integer.valueOf(params[index + 0]);
 		int overkill = Integer.valueOf(params[index + 1]);
 		int school = Integer.valueOf(params[index + 2]);
-		int resisted = Integer.valueOf(params[index + 2]);
-		int blocked = Integer.valueOf(params[index + 2]);
-		int absorbed = Integer.valueOf(params[index + 2]);
-		boolean critical = (params[index + 2].equals("nil") ? false : true);
-		boolean glancing = (params[index + 2].equals("nil") ? false : true);
-		boolean crushing = (params[index + 2].equals("nil") ? false : true);
+		int resisted = Integer.valueOf(params[index + 3]);
+		int blocked = Integer.valueOf(params[index + 4]);
+		int absorbed = Integer.valueOf(params[index + 5]);
+		boolean critical = (params[index + 6].equals("nil") ? false : true);
+		boolean glancing = (params[index + 7].equals("nil") ? false : true);
+		boolean crushing = (params[index + 8].equals("nil") ? false : true);
 
 		return new Damage(amount, overkill, school, resisted, blocked,
 				absorbed, critical, glancing, crushing);

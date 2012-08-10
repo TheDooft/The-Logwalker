@@ -17,11 +17,11 @@ public class SpellAuraRemovedEvent extends SpellEvent {
 	@Override
 	public String getText() {
 		if (target == Unit.nil) {
-			return source.getName() + " lance " + spell.getName();
+			return source.getName() + spell.getName() + " fades";
 		}
-		return source.getName() + " applique le "
+		return source.getName() + spell.getName()
 				+ (auraType == AuraType.BUFF ? "buff" : "debuff") + " "
-				+ spell.getName() + " sur " + target.getName();
+				+ " fades on " + target.getName();
 	}
 
 }

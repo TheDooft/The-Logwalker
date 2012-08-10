@@ -18,11 +18,11 @@ public class SpellAuraAppliedEvent extends SpellEvent {
 	public String getText() {
 		if (target == Unit.nil) {
 			// No Target
-			return source.getName() + " lance " + spell.getName();
+			return source.getName() + " applies " + spell.getName();
 		}
-		return source.getName() + " applique le "
+		return source.getName() + " applies "
 				+ (auraType == AuraType.BUFF ? "buff" : "debuff") + " "
-				+ spell.getName() + " sur " + target.getName();
+				+ spell.getName() + " on " + target.getName();
 	}
 
 }

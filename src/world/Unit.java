@@ -149,11 +149,12 @@ public class Unit {
 		if (owner != Unit.nil)
 			tooltip += "owned by " + owner.getName() + "<br/>";
 		if (!this.fightSummonList.isEmpty()) {
-			tooltip += "owns :<br/>";
+			tooltip += "owns :<br/><ul>";
 			for (Unit unit : this.fightSummonList) {
-				tooltip += "&nbsp- " + unit.getName() + " #"
-						+ Integer.toHexString(unit.getSpawnCounter()) + "<br/>";
+				tooltip += "<li>" + unit.getName() + " #"
+						+ Integer.toHexString(unit.getSpawnCounter()) + "</li>";
 			}
+			tooltip += "</ul>";
 		}
 
 		tooltip += "</html>";

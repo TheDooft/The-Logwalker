@@ -18,11 +18,11 @@ public class SpellAuraRefreshEvent extends SpellEvent {
 	public String getText() {
 		if (target == Unit.nil) {
 			// Aucune cible
-			return source.getName() + " lance " + spell.getName();
+			return source.getName() + " refresh " + spell.getName();
 		}
-		return source.getName() + " applique le "
+		return source.getName() + " refresh "
 				+ (auraType == AuraType.BUFF ? "buff" : "debuff") + " "
-				+ spell.getName() + " sur " + target.getName();
+				+ spell.getName() + " on " + target.getName();
 	}
 
 }
