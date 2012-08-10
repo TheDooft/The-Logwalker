@@ -8,7 +8,7 @@ import java.util.Date;
 public class Timestamp {
 
     public static final DateFormat inputDateFormat = new SimpleDateFormat("y/M/d H:m:s.S");
-    public static final DateFormat outputDateFormat = new SimpleDateFormat("dd/MM HH:mm:ss.S");
+    public static final DateFormat outputDateFormat = new SimpleDateFormat("[HH:mm:ss.SSS]");
 
     static {
         inputDateFormat.setLenient(false);

@@ -8,8 +8,8 @@ public class SpellMissedEvent extends SpellEvent {
 
 	private final Miss miss;
 
-	public SpellMissedEvent(int time, Unit source, Unit target,
-			Spell spell, Miss miss) {
+	public SpellMissedEvent(int time, Unit source, Unit target, Spell spell,
+			Miss miss) {
 		super(time, source, target, spell);
 		this.miss = miss;
 	}
@@ -26,5 +26,4 @@ public class SpellMissedEvent extends SpellEvent {
 		ret += " (" + miss.toString() + ").";
 		return ret;
 	}
-
 }
