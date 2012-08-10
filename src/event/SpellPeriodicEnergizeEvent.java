@@ -20,8 +20,13 @@ public class SpellPeriodicEnergizeEvent extends SpellEvent {
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		if (target == Unit.nil) {
+			return source.getName() + " " + spell.getName() + " periodic gains "
+					+ energize.getAmount() + " " + energize.toString();
+		}
+		return source.getName() + " " + spell.getName() + " periodic gives "
+				+ this.target.getName() + " " + energize.getAmount() + " "
+				+ energize.toString();
 	}
 
 }

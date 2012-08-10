@@ -23,7 +23,7 @@ public class SpellMissedEvent extends SpellEvent {
 		String ret = source.getName() + " " + spell.getName() + " miss";
 		if (target != null)
 			ret += " on " + target.getName();
-		ret += "(" + miss.getType().name() + ").";
+		ret += " (" + miss.toString() + ").";
 		return ret;
 	}
 

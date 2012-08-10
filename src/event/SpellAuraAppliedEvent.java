@@ -16,13 +16,12 @@ public class SpellAuraAppliedEvent extends SpellEvent {
 
 	@Override
 	public String getText() {
-		if (target == Unit.nil) {
-			// No Target
-			return source.getName() + " applies " + spell.getName();
-		}
-		return source.getName() + " applies "
-				+ (auraType == AuraType.BUFF ? "buff" : "debuff") + " "
-				+ spell.getName() + " on " + target.getName();
+		String ret = source.getName() + " applies "
+				+ (auraType == AuraType.BUFF ? "buff " : "debuff ")
+				+ spell.getName();
+		if (target != Unit.nil)
+			ret += " on " + target.getName();
+		return ret;
 	}
 
 }

@@ -15,11 +15,15 @@ public class SwingDamageEvent extends SwingEvent implements DamageEvent {
 
     @Override
 	public String getText() {
-    	String ret = source.getName() + " hits";
+    	String ret = source.getName();
+		if (damage.isCritical())
+			ret += " criticaly";
+		ret += " hits";
 		if (target == Unit.nil) {
 			ret += " " + target.getName();
 		}
-		ret += " for " + damage.getAmount() + " " + Spell.getSchoolName(damage.getSchool()) + " damage";
+		ret += " for " + damage.getAmount() + " "
+				+ Spell.getSchoolName(damage.getSchool()) + " damage";
 		if (damage.getAbsorbed() > 0)
 			ret += " (" + damage.getAbsorbed() + " absorbed)";
 		if (damage.getBlocked() > 0)
@@ -28,6 +32,10 @@ public class SwingDamageEvent extends SwingEvent implements DamageEvent {
 			ret += " (" + damage.getResisted() + " resisted)";
 		if (damage.getOverkill() > 0)
 			ret += " (" + damage.getOverkill() + " overkill)";
+		if (damage.isGlancing())
+			ret += " (Glancing)";
+		if (damage.isCrushing())
+			ret += " (Crushing)";
 		return ret;
     }
 

@@ -8,16 +8,26 @@ public class SpellHealEvent extends SpellEvent implements HealEvent {
 
 	private final Heal heal;
 
-	public SpellHealEvent(int time, Unit source, Unit target,
-			Spell spell, Heal heal) {
+	public SpellHealEvent(int time, Unit source, Unit target, Spell spell,
+			Heal heal) {
 		super(time, source, target, spell);
 		this.heal = heal;
 	}
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		String ret = source.getName() + " " + spell.getName();
+		if (heal.isCritical())
+			ret += " critically";
+		ret += " heals ";
+		if (target != Unit.nil)
+			ret += target.getName();
+		ret += " for " + heal.getAmount();
+		if (heal.getAbsorbed() > 0)
+			ret += " (" + heal.getAbsorbed() + " absorbed)";
+		if (heal.getOverHealing() > 0)
+			ret += " (" + heal.getOverHealing() + " overheal)";
+		return ret;
 	}
 
 	@Override

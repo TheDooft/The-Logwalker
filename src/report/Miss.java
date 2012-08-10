@@ -19,6 +19,10 @@ public class Miss {
 		return type;
 	}
     
+    public String toString(){
+    	return type.toString().toLowerCase().replace('_', ' ');
+    }
+    
     public enum Type {
         ABSORB,
         BLOCK,

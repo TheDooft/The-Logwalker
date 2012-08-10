@@ -26,11 +26,11 @@ public class SpellPeriodicDrainEvent extends SpellEvent {
 	@Override
 	public String getText() {
 		if (target == Unit.nil) {
-			return source.getName() + " " + spell.getName() + " drains "
+			return source.getName() + " " + spell.getName() + " periodic drains "
 					+ energize.getAmount() + " (+" + extraAmount + ") "
 					+ energize.getType() + ".";
 		}
-		return source.getName() + " " + spell.getName() + " drains "
+		return source.getName() + " " + spell.getName() + " periodic drains "
 				+ this.target.getName() + " " + energize.getAmount() + " (+"
 				+ extraAmount + ") " + energize.getType() + ".";
 	}

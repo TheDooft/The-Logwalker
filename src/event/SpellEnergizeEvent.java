@@ -18,11 +18,11 @@ public class SpellEnergizeEvent extends SpellEvent {
 	public String getText() {
 		if (target == Unit.nil) {
 			return source.getName() + " " + spell.getName() + " gains "
-					+ energize.getAmount() + " " + energize.getType() + ".";
+					+ energize.getAmount() + " " + energize.toString();
 		}
 		return source.getName() + " " + spell.getName() + " gives "
 				+ this.target.getName() + " " + energize.getAmount() + " "
-				+ energize.getType() + ".";
+				+ energize.toString();
 	}
 
 }

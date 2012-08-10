@@ -25,11 +25,10 @@ public class SpellAuraBrokenSpellEvent extends SpellEvent {
 
 	@Override
 	public String getText() {
-		if (target == Unit.nil) {
-			return source.getName() + " " + spell.getName() + " brokes "
-					+ this.spell.getName() + ".";
-		}
-		return source.getName() + " " + spell.getName() + " brokes "
-				+ this.target.getName() + " " + this.spell.getName() + ".";
+		String ret = source.getName() + " " + spell.getName() + " breaks "
+				+ extraSpell.getName();
+		if (target != Unit.nil)
+			ret += " on " + target.getName();
+		return ret;
 	}
 }

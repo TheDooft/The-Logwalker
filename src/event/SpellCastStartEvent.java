@@ -20,7 +20,6 @@ public class SpellCastStartEvent extends SpellEvent {
 		String ret = source.getName() + " begins to cast " + spell.getName();
 		if (target != Unit.nil)
 			ret += " on " + target.getName();
-		ret += ".";
 		return ret;
 	}
 

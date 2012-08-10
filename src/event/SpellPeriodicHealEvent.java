@@ -16,8 +16,18 @@ public class SpellPeriodicHealEvent extends SpellEvent implements HealEvent {
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		String ret = source.getName() + " " + spell.getName();
+		if (heal.isCritical())
+			ret += " critically";
+		ret += " periodic heals ";
+		if (target != Unit.nil)
+			ret += target.getName();
+		ret += " for " + heal.getAmount();
+		if (heal.getAbsorbed() > 0)
+			ret += " (" + heal.getAbsorbed() + " absorbed)";
+		if (heal.getOverHealing() > 0)
+			ret += " (" + heal.getOverHealing() + " overheal)";
+		return ret;
 	}
 
 	@Override

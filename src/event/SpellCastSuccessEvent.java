@@ -20,7 +20,6 @@ public class SpellCastSuccessEvent extends SpellEvent {
 		String ret = source.getName() + " succesfuly cast " + spell.getName();
 		if (target != Unit.nil)
 			ret += " on " + target.getName();
-		ret += ".";
 		return ret;
 	}
 

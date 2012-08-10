@@ -21,7 +21,7 @@ public class SwingMissed extends SwingEvent {
     	String ret = source.getName() + " swing miss";
 		if (target != Unit.nil)
 			ret += " on " + target.getName();
-		ret += "(" + miss.getType().name() + ").";
+		ret += " (" + miss.toString() + ").";
 		return ret;
     }
 

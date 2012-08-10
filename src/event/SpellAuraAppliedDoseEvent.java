@@ -25,13 +25,11 @@ public class SpellAuraAppliedDoseEvent extends SpellEvent {
 
 	@Override
 	public String getText() {
-		if (target == Unit.nil) {
-			// No Target
-			return source.getName() + " casts " + spell.getName();
-		}
-		return source.getName() + " applies " + spell.getName() + "("
-				+ this.amount + ") "
-				+ (auraType == AuraType.BUFF ? "buff" : "debuff") + " on "
-				+ target.getName();
+		String ret = source.getName() + " applies "
+				+ (auraType == AuraType.BUFF ? "buff " : "debuff ")
+				+ spell.getName() + "(" + this.amount + ")";
+		if (target != Unit.nil)
+			ret += " on " + target.getName();
+		return ret;
 	}
 }

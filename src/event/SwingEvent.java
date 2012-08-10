@@ -10,7 +10,7 @@ public class SwingEvent extends LogEvent {
 
     @Override
 	public String getText() {
-        return source.getName() + " tape "+ target.getName();
+        return source.getName() + " swing at "+ target.getName();
     }
 
 }

@@ -10,7 +10,7 @@ public class UnitDestroyedEvent extends LogEvent {
 
     @Override
 	public String getText() {
-        return target.getName() + " meurt";
+        return target.getName() + " has been destroyed";
     }
 
 

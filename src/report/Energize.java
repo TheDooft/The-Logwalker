@@ -19,6 +19,15 @@ public class Energize {
 		return type;
 	}
     
+    public String toString(){
+    	if (type == Type.ECLIPSE)
+    		if (amount < 0)
+    			return "solar energy";
+    		else
+    			return "lunar enery";
+    	return type.toString().toLowerCase().replace('_', ' ');
+    }
+    
     public enum Type {
         HEALTH,
         MANA,

@@ -197,7 +197,7 @@ public class LogParser extends SwingWorker<Void, Integer> {
 		int amount = Integer.valueOf(params[index + 0]);
 		int overhealing = Integer.valueOf(params[index + 1]);
 		int absorbed = Integer.valueOf(params[index + 2]);
-		boolean critical = (params[index + 2].equals("nil") ? false : true);
+		boolean critical = (params[index + 3].equals("nil") ? false : true);
 
 		return new Heal(amount, overhealing, absorbed, critical);
 
