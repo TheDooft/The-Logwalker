@@ -4,6 +4,7 @@ import java.awt.Cursor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -30,10 +31,10 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 	private JTextArea logArea;
 	private JProgressBar progressBar;
 	private DefaultStyledDocument doc;
-	
+
 	private Update update;
-	
-	class Update extends SwingWorker<Void, Void>{
+
+	class Update extends SwingWorker<Void, Integer> {
 
 		@Override
 		protected Void doInBackground() throws Exception {
@@ -46,52 +47,62 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 			int max = eventList.size();
 			try {
 				for (LogEvent e : eventList) {
-					int percent = (++i * 100) / max ;
-					if (percent > last){
+					int percent = (++i * 10000) / max;
+					if (percent > last) {
 						last = percent;
-						setProgress(percent);
+						publish(percent);
 					}
-						
+
 					String displayStr = "";
-					
-					// For debbuging purpose : 
+					/*
+					// For debbuging purpose :
 					displayStr += "[" + e.getClass().toString() + "]\t";
-					
-					displayStr += Timestamp.displayTime(e.getTime()) + '\t' + e.getText() + '\n';
-					doc.insertString(doc.getEndPosition().getOffset(), displayStr,
-							null);
+					*/
+					displayStr += Timestamp.displayTime(e.getTime()) + '\t'
+							+ e.getText() + '\n';
+					doc.insertString(doc.getEndPosition().getOffset(),
+							displayStr, null);
 				}
 			} catch (BadLocationException e1) {
 				e1.printStackTrace();
 			}
 			return null;
 		}
-		
+
+		@Override
+		protected void process(List<Integer> chunks) {
+			for (Integer nb : chunks) {
+				progressBar.setValue(nb);
+				progressBar.setString("Generating log -" + nb / 100 + "%");
+			}
+		}
+
 		@Override
 		protected void done() {
 			logArea.setDocument(doc);
 			progressBar.setVisible(false);
 			setCursor(null);
 		}
-		
+
 	}
-	
+
 	public LogTab(Fight fight) {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		
+
 		currentFight = fight;
-		
+
 		logArea = new JTextArea();
 		logArea.setEditable(false);
 		JScrollPane logScrollPane = new JScrollPane(logArea);
 		logScrollPane.setAlignmentX(LEFT_ALIGNMENT);
-		
+
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
 		progressBar.setVisible(false);
+		progressBar.setMaximum(10000);
 		progressBar.setAlignmentX(LEFT_ALIGNMENT);
-		
+
 		this.add(logScrollPane);
 		this.add(Box.createVerticalGlue());
 		this.add(progressBar);
@@ -106,10 +117,7 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if ("progress" == evt.getPropertyName()) {
-            int progress = (Integer) evt.getNewValue();
-            progressBar.setValue(progress);
-            progressBar.setToolTipText("Generating log - " + progress + "%");
-        } 
+		// TODO Auto-generated method stub
+		
 	}
 }
