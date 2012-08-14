@@ -53,10 +53,10 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 					}
 						
 					String displayStr = "";
-					/*
+					
 					// For debbuging purpose : 
 					displayStr += "[" + e.getClass().toString() + "]\t";
-					*/
+					
 					displayStr += Timestamp.displayTime(e.getTime()) + '\t' + e.getText() + '\n';
 					doc.insertString(doc.getEndPosition().getOffset(), displayStr,
 							null);
@@ -109,6 +109,7 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 		if ("progress" == evt.getPropertyName()) {
             int progress = (Integer) evt.getNewValue();
             progressBar.setValue(progress);
+            progressBar.setToolTipText("Generating log - " + progress + "%");
         } 
 	}
 }

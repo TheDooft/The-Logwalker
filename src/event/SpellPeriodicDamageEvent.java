@@ -18,9 +18,9 @@ public class SpellPeriodicDamageEvent extends SpellEvent implements DamageEvent 
 	public String getText() {
 		String ret = source.getName() + " " + spell.getName();
 		if (damage.isCritical())
-			ret += " criticaly";
+			ret += " critically";
 		ret += " periodic hits ";
-		if (target == Unit.nil) {
+		if (target != Unit.nil) {
 			ret += " " + target.getName();
 		}
 		ret += " for " + damage.getAmount() + " "

@@ -20,9 +20,9 @@ public class DamageShieldEvent extends LogEvent implements DamageEvent {
 	public String getText() {
 		String ret = source.getName() + " " + spell.getName();
 		if (damage.isCritical())
-			ret += " criticaly";
+			ret += " critically";
 		ret += " hits";
-		if (target == Unit.nil) {
+		if (target != Unit.nil) {
 			ret += " " + target.getName();
 		}
 		ret += " for " + damage.getAmount() + " "

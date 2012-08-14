@@ -17,9 +17,9 @@ public class SwingDamageEvent extends SwingEvent implements DamageEvent {
 	public String getText() {
     	String ret = source.getName();
 		if (damage.isCritical())
-			ret += " criticaly";
+			ret += " critically";
 		ret += " hits";
-		if (target == Unit.nil) {
+		if (target != Unit.nil) {
 			ret += " " + target.getName();
 		}
 		ret += " for " + damage.getAmount() + " "
