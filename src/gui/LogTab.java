@@ -91,7 +91,7 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		currentFight = fight;
-
+		
 		logArea = new JTextArea();
 		logArea.setEditable(false);
 		JScrollPane logScrollPane = new JScrollPane(logArea);
@@ -102,7 +102,7 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 		progressBar.setVisible(false);
 		progressBar.setMaximum(10000);
 		progressBar.setAlignmentX(LEFT_ALIGNMENT);
-
+		
 		this.add(logScrollPane);
 		this.add(Box.createVerticalGlue());
 		this.add(progressBar);

@@ -40,17 +40,17 @@ public class MainWindow extends JFrame implements ChangeListener {
 		tabs = new JTabbedPane(JTabbedPane.LEFT);
 
 		setSize(1024, 768);
-		setTitle("The LogWalker");
+		setTitle("The LogWalker - Alpha 1");
 		setIconImage(new ImageIcon("./img/small/spell_nature_magicimmunity.jpg")
 				.getImage());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		tabs.addTab("Parsing", new ParsingTab());
-		tabs.addTab("All", new ReportTab(null));
+		//tabs.addTab("All", new ReportTab(null));
 		tabs.setTabComponentAt(0,
 				createTab("Parsing", "./img/small/inv_scroll_01.jpg"));
-		tabs.setTabComponentAt(1,
-				createTab("All", "./img/small/inv_scroll_02.jpg"));
+		//tabs.setTabComponentAt(1,
+		//		createTab("All", "./img/small/inv_scroll_02.jpg"));
 		tabs.addChangeListener(this);
 
 		add(tabs);

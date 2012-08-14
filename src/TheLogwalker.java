@@ -13,12 +13,6 @@ public class TheLogwalker {
 		Gui gui = new Gui();
 		
 		gui.start();
-		/*System.out.println("Begin" + System.nanoTime() /1000000000.0);
-		System.out.println("Parsing...");
-		long start = System.nanoTime();
-		LogParser parser = new LogParser("./sample/WoWCombatLog.txt");
-		long total = System.nanoTime() - start;
-		System.out.println("End" + total /1000000000.0);*/
 	}
 
 }

@@ -11,7 +11,7 @@ public class SpecialCaseManager {
 		private static final long serialVersionUID = -1838811774644304294L;
 		{
 			put(23133, 8836); // Gnomish Battle Chicken
-			put(71521, 46157); // Hnad of Gul'dan
+			put(71521, 46157); // Hand of Gul'dan
 		}
 	};
 	private Hashtable<Integer, Unit> watchList;

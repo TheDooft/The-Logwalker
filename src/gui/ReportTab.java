@@ -14,8 +14,8 @@ public class ReportTab extends JPanel implements ChangeListener {
 	 * 
 	 */
 	private static final long serialVersionUID = -5983019447298032535L;
-	JTabbedPane tabs;
-	Fight fight;
+	private JTabbedPane tabs;
+	private Fight fight;
 
 	public ReportTab(Fight fight) {
 		tabs = new JTabbedPane(JTabbedPane.TOP);
@@ -31,6 +31,7 @@ public class ReportTab extends JPanel implements ChangeListener {
 			fight.compute(); // TODO -> worker
 			tabs.addTab("Units", new ReportUnitsTab(fight));
 			tabs.addTab("Log", new LogTab(fight));
+			tabs.addTab("Filters", new FiltersTab(fight));
 			tabs.addChangeListener(this);
 		}
 	}
