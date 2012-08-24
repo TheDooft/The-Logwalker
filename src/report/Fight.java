@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import world.Unit;
 import boss.Boss;
 import event.LogEvent;
+import filter.Filter;
 
 public class Fight {
 	private Boss boss;
@@ -16,6 +17,7 @@ public class Fight {
 	private ArrayList<Unit> npcList;
 	private ArrayList<Unit> freePetList;
 	private Boolean computed;
+	private Filter filter;
 
 	public Fight(Boss boss, int beginTime) {
 		this.boss = boss;
@@ -129,5 +131,10 @@ public class Fight {
 
 	public ArrayList<Unit> getFreePetList() {
 		return freePetList;
+	}
+
+	public void setFilter(Filter filter) {
+		this.filter = filter;
+		
 	}
 }
