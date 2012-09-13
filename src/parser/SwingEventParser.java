@@ -6,7 +6,7 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseExceptio
 
 import event.LogEvent;
 import event.SwingDamageEvent;
-import event.SwingMissed;
+import event.SwingMissedEvent;
 
 public class SwingEventParser extends EventParser{
 
@@ -21,7 +21,7 @@ public class SwingEventParser extends EventParser{
         if(key.equals("SWING_DAMAGE")) {
             return new SwingDamageEvent(time, source, target, LogParser.parseDamage(params, LogParser.PREFIX_PARAM1));
         }else if(key.equals("SWING_MISSED")) {
-            return new SwingMissed(time, source, target, LogParser.parseMiss(params, LogParser.PREFIX_PARAM1));
+            return new SwingMissedEvent(time, source, target, LogParser.parseMiss(params, LogParser.PREFIX_PARAM1));
         }
 
         throw new ParseException("Unknown event type "+key);

@@ -3,11 +3,11 @@ package event;
 import report.Miss;
 import world.Unit;
 
-public class SwingMissed extends SwingEvent {
+public class SwingMissedEvent extends SwingEvent {
 
     private final Miss miss;
 
-    public SwingMissed(int time, Unit source, Unit target, Miss miss) {
+    public SwingMissedEvent(int time, Unit source, Unit target, Miss miss) {
         super(time, source, target);
         this.miss = miss;
     }

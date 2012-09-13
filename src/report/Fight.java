@@ -1,6 +1,7 @@
 package report;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import world.Unit;
 import boss.Boss;
@@ -17,13 +18,14 @@ public class Fight {
 	private ArrayList<Unit> npcList;
 	private ArrayList<Unit> freePetList;
 	private Boolean computed;
-	private Filter filter;
+	private List<Filter> filter;
 
 	public Fight(Boss boss, int beginTime) {
 		this.boss = boss;
 		this.beginTime = beginTime;
 		this.eventList = new ArrayList<LogEvent>();
 		this.computed = false;
+		this.filter = new ArrayList<Filter>();
 	}
 
 	public boolean isActive(Unit unit) {
@@ -133,8 +135,12 @@ public class Fight {
 		return freePetList;
 	}
 
-	public void setFilter(Filter filter) {
-		this.filter = filter;
+	public void setFilters(List<Filter> filterList) {
+		this.filter = filterList;
 		
+	}
+	
+	public List<Filter> getFilters(){
+		return this.filter;
 	}
 }

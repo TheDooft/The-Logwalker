@@ -18,6 +18,7 @@ public class FilterWindow extends JFrame {
 	private Filter filter;
 	private JButton cancelButton;
 	private JButton okButton;
+	private FilterWindowTypePanel filterWindowTypePanel;
 	
 	public FilterWindow() {
 		setVisible(false);
@@ -26,8 +27,6 @@ public class FilterWindow extends JFrame {
 		setType(Type.UTILITY);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
-		
 		
 		cancelButton = new JButton("Cancel");
 		cancelButton.setName("filterWindowCancel");
@@ -42,7 +41,8 @@ public class FilterWindow extends JFrame {
 		JPanel mainPannel = new JPanel();
 		mainPannel.setLayout(new BoxLayout(mainPannel, BoxLayout.PAGE_AXIS));
 		mainPannel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		mainPannel.add(new FilterWindowTypePanel());
+		filterWindowTypePanel = new FilterWindowTypePanel(filter);
+		mainPannel.add(filterWindowTypePanel);
 		mainPannel.add(buttonPannel);
 		
 		add(mainPannel);
@@ -55,6 +55,7 @@ public class FilterWindow extends JFrame {
 
 	public void setFilter(Filter filter) {
 		this.filter = filter;
+		filterWindowTypePanel.setFilter(filter);
 	}
 	
 	public JButton getCancelButton() {

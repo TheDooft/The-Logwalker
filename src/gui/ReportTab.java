@@ -16,8 +16,11 @@ public class ReportTab extends JPanel implements ChangeListener {
 	private static final long serialVersionUID = -5983019447298032535L;
 	private JTabbedPane tabs;
 	private Fight fight;
-
+	private LogTab logTab;
+	private boolean firstUpdate;
+	
 	public ReportTab(Fight fight) {
+		firstUpdate = true;
 		tabs = new JTabbedPane(JTabbedPane.TOP);
 		add(tabs);
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -30,17 +33,25 @@ public class ReportTab extends JPanel implements ChangeListener {
 			reportEngine.setCurrentFight(fight);
 			fight.compute(); // TODO -> worker
 			tabs.addTab("Units", new ReportUnitsTab(fight));
-			tabs.addTab("Log", new LogTab(fight));
+			logTab = new LogTab(fight);
+			tabs.addTab("Log", logTab);
 			tabs.addTab("Filters", new FiltersTab(fight));
 			tabs.addChangeListener(this);
 		}
 	}
 
+	public LogTab getLogTab() {
+		return logTab;
+	}
+	
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		if (tabs.getSelectedComponent().getClass().equals(LogTab.class)){
 			LogTab tab = (LogTab) tabs.getSelectedComponent();
-			tab.updateContent();
+			if (firstUpdate){
+				tab.updateContent();
+			}
 		}
+		firstUpdate = false;
 	}
 }

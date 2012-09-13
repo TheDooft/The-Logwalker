@@ -20,6 +20,7 @@ import javax.swing.text.DefaultStyledDocument;
 import report.Fight;
 import world.Timestamp;
 import event.LogEvent;
+import filter.Filter;
 
 public class LogTab extends JPanel implements PropertyChangeListener {
 
@@ -53,15 +54,25 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 						publish(percent);
 					}
 
-					String displayStr = "";
-					/*
-					// For debbuging purpose :
-					displayStr += "[" + e.getClass().toString() + "]\t";
-					*/
-					displayStr += Timestamp.displayTime(e.getTime()) + '\t'
-							+ e.getText() + '\n';
-					doc.insertString(doc.getEndPosition().getOffset(),
-							displayStr, null);
+					List<Filter> filters = currentFight.getFilters();
+					boolean filtered = true;
+					if (filters.isEmpty()) {
+						filtered = false;
+					}
+					for (Filter filter : filters) {
+						if (filter.isMatching(e)) {
+							filtered = false;
+						}
+					}
+
+					if (!filtered) {
+						String displayStr = "";
+
+						displayStr += Timestamp.displayTime(e.getTime()) + '\t'
+								+ e.getText() + '\n';
+						doc.insertString(doc.getEndPosition().getOffset(),
+								displayStr, null);
+					}
 				}
 			} catch (BadLocationException e1) {
 				e1.printStackTrace();
@@ -91,7 +102,7 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		currentFight = fight;
-		
+
 		logArea = new JTextArea();
 		logArea.setEditable(false);
 		JScrollPane logScrollPane = new JScrollPane(logArea);
@@ -102,7 +113,7 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 		progressBar.setVisible(false);
 		progressBar.setMaximum(10000);
 		progressBar.setAlignmentX(LEFT_ALIGNMENT);
-		
+
 		this.add(logScrollPane);
 		this.add(Box.createVerticalGlue());
 		this.add(progressBar);
@@ -118,6 +129,6 @@ public class LogTab extends JPanel implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
